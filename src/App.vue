@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <AppStage msg="Watchful Eye"/>
-    <Earth />
+    <AppStage class="app-main" />
+    <Earth class="gaia" />
   </div>
 </template>
 
@@ -30,5 +30,21 @@ body {
   height: 100vh;
   position: relative;
   overflow: hidden;
+
+  .app-main {
+    z-index: 2;
+  }
+
+  .gaia {
+    z-index: 1;
+  }
+
+  h1 {
+    color: $yellow;
+  }
+
+  h3 {
+    color: white;
+  }
 }
 </style>

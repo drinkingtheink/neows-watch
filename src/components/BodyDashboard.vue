@@ -4,7 +4,7 @@
             v-for="body in bodyCollection" 
             :key="body.neo_reference_id"
             class="heavenly-body"
-            :style="{ 'right': `${getRandomInt(10, 90)}%`, 'top':  `${getRandomInt(10, 90)}%`}"
+            :style="{ 'right': `${getRandomInt(10, 90)}%`, 'top':  `${getDistanceFromEarth(body.close_approach_data[0].miss_distance)}%`}"
         >
             <span>{{ body.name }}</span>
             <span class="disc" />
@@ -24,6 +24,10 @@ export default {
             min = Math.ceil(min);
             max = Math.floor(max);
             return Math.floor(Math.random() * (max - min + 1)) + min;
+        },
+        getDistanceFromEarth(distData) {
+            console.log(`DIST: ${JSON.stringify(distData)}`);
+            return this.getRandomInt(20, 100);
         }
     }
 }

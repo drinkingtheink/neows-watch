@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h1>{{ msg }} | NEOWS Watching {{ bodyCount }} objects today</h1>
+    <h1>Watchful Eye | NEOWS Watching {{ bodyCount }} objects today</h1>
     <BodyDashboard 
       :bodyCollection="foundBodies" 
       :bodyCount="bodyCount"
@@ -13,9 +13,6 @@ import BodyDashboard from './BodyDashboard.vue'
 
 export default {
   name: 'AppStage',
-  props: {
-    msg: String
-  },
   components: {
     BodyDashboard,
   },
@@ -68,17 +65,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/palette';
-
-h1 {
-  color: $yellow;
-}
-
-h3 {
-  margin: 40px 0 0;
-  color: white;
-}
-
 main {
   position: relative;
 }
