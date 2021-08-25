@@ -1,19 +1,44 @@
 <template>
   <main>
+    <button
+      type="button"
+      class="btn"
+      @click="showModal"
+    >
+      Open Modal!
+    </button>
     <BodyDashboard 
       :bodyCollection="foundBodies" 
       :bodyCount="bodyCount"
     />
+    <Modal
+      v-show="modalIsVisible"
+      @close="closeModal"
+    >
+      <template v-slot:header>
+        This is a new modal header.
+      </template>
+
+      <template v-slot:body>
+        This is a new modal body.
+      </template>
+
+      <template v-slot:footer>
+        This is a new modal footer.
+      </template>
+    </Modal>
   </main>
 </template>
 
 <script>
-import BodyDashboard from './BodyDashboard.vue'
+import BodyDashboard from './BodyDashboard.vue';
+import Modal from './Modal.vue';
 
 export default {
   name: 'AppStage',
   components: {
     BodyDashboard,
+    Modal,
   },
   data() {
     return {
@@ -21,6 +46,7 @@ export default {
       apiKey: 'Z1Y1LoyLfSDcQJI51fl8E1tYsrZQgnvU09C5pV36',
       bodyCount: 0,
       foundBodies: null,
+      modalIsVisible: false,
     }
   },
   computed: {
@@ -39,6 +65,12 @@ export default {
     this.getData();
   },
   methods: {
+    showModal() {
+      this.modalIsVisible = true;
+    },
+    closeModal() {
+      this.modalIsVisible = false;
+    },
     getData() {
       fetch(this.dataUrl)
         .then(response => {
