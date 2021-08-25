@@ -3,21 +3,26 @@
         <header>
             <h1>Watchful Eye | NEOWS Watching {{ bodyCount }} objects today</h1>
         </header>
-        <div 
-            v-for="body in bodyCollection" 
+        <Body 
+            v-for="body, index in bodyCollection" 
             :key="body.neo_reference_id"
-            class="heavenly-body"
-            :style="{ 'right': `${getRandomInt(10, 90)}%`, 'top':  `${getDistanceFromEarth(body.close_approach_data[0].miss_distance)}%`}"
+            :style="{ 'right': `${getRandomInt(10, 90)}%`, 'top':  `${getDistanceFromEarth(body.close_approach_data[0].miss_distance)}%`, 'animation-delay': `0.${index}s`}"
+            :getRandomInt="getRandomInt"
+            :getDistanceFromEarth="getDistanceFromEarth"
+            :body="body"
         >
-            <span class="label">{{ body.name }}</span>
-            <span class="disc" />
-        </div>
+        </Body>
     </div>
 </template>
 
 <script>
+import Body from './Body.vue'
+
 export default {
     name: 'BodyDashboard',
+    components: {
+        Body,
+    },
     props: {
         bodyCollection: Array,
         bodyCount: Number
@@ -29,49 +34,28 @@ export default {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         },
         getDistanceFromEarth(distData) {
-            console.log(`DIST: ${JSON.stringify(distData)}`);
-            return this.getRandomInt(30, 100);
+            let distance = distData.miles;
+            console.info(`DISTANCE: ${Math.floor(distance)}`);
+            
+            // let distanceSetting;
+            
+            return this.getRandomInt(15, 90);
         }
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../styles/palette';
 
 .body-dashboard-stage {
     height: 100vh;
-}
 
-header {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    background-color: rgba(black, 0.4);
-}
-
-.label {
-    background-color: rgba(black, 0.5);
-    color: $yellow;
-    padding: 4px;
-    font-size: .75rem;
-}
-
-.heavenly-body {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-}
-
-$bodyDim: 20px;
-
-.disc {
-    border-radius: 50%;
-    height: $bodyDim;
-    width: $bodyDim;
-    background-color: white;
-    display: inline-block;
-    margin: 0 auto;
+    header {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        background-color: rgba(black, 0.4);
+    }
 }
 </style>
