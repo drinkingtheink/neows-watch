@@ -19,6 +19,8 @@ export default {
 @import './styles/palette';
 body {
   background-color: $black;
+  margin: 0;
+  padding: 0;
 }
 
 #app {
