@@ -9,7 +9,7 @@
             class="heavenly-body"
             :style="{ 'right': `${getRandomInt(10, 90)}%`, 'top':  `${getDistanceFromEarth(body.close_approach_data[0].miss_distance)}%`}"
         >
-            <span>{{ body.name }}</span>
+            <span class="label">{{ body.name }}</span>
             <span class="disc" />
         </div>
     </div>
@@ -30,13 +30,15 @@ export default {
         },
         getDistanceFromEarth(distData) {
             console.log(`DIST: ${JSON.stringify(distData)}`);
-            return this.getRandomInt(20, 100);
+            return this.getRandomInt(30, 100);
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/palette';
+
 .body-dashboard-stage {
     height: 100vh;
 }
@@ -48,8 +50,18 @@ header {
     background-color: rgba(black, 0.4);
 }
 
+.label {
+    background-color: rgba(black, 0.5);
+    color: $yellow;
+    padding: 4px;
+    font-size: .75rem;
+}
+
 .heavenly-body {
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
 }
 
 $bodyDim: 20px;
@@ -60,5 +72,6 @@ $bodyDim: 20px;
     width: $bodyDim;
     background-color: white;
     display: inline-block;
+    margin: 0 auto;
 }
 </style>
