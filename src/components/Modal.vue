@@ -18,28 +18,40 @@
                         x
                     </button>
                 </header>
-                <div v-if="content.is_potentially_hazardous_asteroid">POTENTIALLY HAZARDOUS</div>
-                <div v-else>POSES NO KNOWN THREAT</div>
 
                 <section class="modal-body" v-if="content">
-                    <p class="approach-date">Approaching {{ approachData.orbiting_body }} {{ approachData.close_approach_date_full }}</p>
+                    <div class="body-section">
+                        <section>
+                            <h6>APPROACHING</h6>
+                            <p>{{ approachData.close_approach_date_full }}</p>
+                        </section>
+                        <section>
+                            <h6>ABSOLUTE MAGNITUDE</h6>
+                            <p>h = {{ content.absolute_magnitude_h }}</p>
+                        </section>
+                        <section>
+                            <h6>THREAT TO EARTH</h6>
+                            <p v-if="content.is_potentially_hazardous_asteroid">POTENTIALLY HAZARDOUS</p>
+                            <p v-else>NO THREAT</p>
+                        </section>
+                    </div>
 
-                    <h4>Size: (estimated diameter)</h4>
+                    <h4>Size (estimated diameter):</h4>
                     <div class="body-section">
                         <section>
                             <h6>FEET</h6>
                             <p>MIN: {{ content.estimated_diameter.feet.estimated_diameter_min }}</p>
-                            <p>MAX: {{ content.estimated_diameter.feet.estimated_diameter_min }}</p>
+                            <p>MAX: {{ content.estimated_diameter.feet.estimated_diameter_max }}</p>
                         </section>
                         <section>
                             <h6>kM</h6>
                             <p>MIN: {{ content.estimated_diameter.kilometers.estimated_diameter_min }}</p>
-                            <p>MAX: {{ content.estimated_diameter.kilometers.estimated_diameter_min }}</p>
+                            <p>MAX: {{ content.estimated_diameter.kilometers.estimated_diameter_max }}</p>
                         </section>
                         <section>
                             <h6>MILES</h6>
                             <p>MIN: {{ content.estimated_diameter.miles.estimated_diameter_min }}</p>
-                            <p>MAX: {{ content.estimated_diameter.miles.estimated_diameter_min }}</p>
+                            <p>MAX: {{ content.estimated_diameter.miles.estimated_diameter_max }}</p>
                         </section>
                     </div>
 
@@ -161,6 +173,7 @@ h3.id {
 .modal-footer {
     padding: 15px;
     display: flex;
+    background-color: $grey;
 }
 
 .modal-header {
@@ -202,19 +215,21 @@ h3.id {
 }
 
 button {
-    color: $yellow;
-    background: $black;
-    border: 1px solid $yellow;
+    color: $black;
+    background: $yellow;
+    border: 2px solid $yellow;
     border-radius: 2px;
     padding: 1rem 2rem;
     text-transform: uppercase;
     font-size: 120%;
     transition: all .2s;
-    border-radius: 5px;
+    border-radius: 20px;
 
     &:hover {
         cursor: pointer;
         background: black;
+        color: $yellow;
+        border-color: $yellow;
     }
 }
 
