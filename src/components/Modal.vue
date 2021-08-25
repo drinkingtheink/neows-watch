@@ -1,6 +1,6 @@
 <template>
     <transition name="modal-fade">
-        <div class="modal-backdrop" @click="close">
+        <div class="modal-backdrop">
             <div class="modal">
                 <header class="modal-header">
                     <div v-if="content">
@@ -18,43 +18,72 @@
                         x
                     </button>
                 </header>
+                <div v-if="content.is_potentially_hazardous_asteroid">POTENTIALLY HAZARDOUS</div>
+                <div v-else>POSES NO KNOWN THREAT</div>
 
                 <section class="modal-body" v-if="content">
+                    <p class="approach-date">Approaching {{ approachData.orbiting_body }} {{ approachData.close_approach_date_full }}</p>
+
                     <h4>Size: (estimated diameter)</h4>
                     <div class="body-section">
                         <section>
+                            <h6>FEET</h6>
                             <p>MIN: {{ content.estimated_diameter.feet.estimated_diameter_min }}</p>
                             <p>MAX: {{ content.estimated_diameter.feet.estimated_diameter_min }}</p>
                         </section>
                         <section>
+                            <h6>kM</h6>
                             <p>MIN: {{ content.estimated_diameter.kilometers.estimated_diameter_min }}</p>
                             <p>MAX: {{ content.estimated_diameter.kilometers.estimated_diameter_min }}</p>
                         </section>
                         <section>
+                            <h6>MILES</h6>
                             <p>MIN: {{ content.estimated_diameter.miles.estimated_diameter_min }}</p>
                             <p>MAX: {{ content.estimated_diameter.miles.estimated_diameter_min }}</p>
                         </section>
                     </div>
 
-                    <h4>Speed</h4>
+                    <h4>Speed:</h4>
                     <div class="body-section">
-                        
+                        <section>
+                            <h6>MPH</h6>
+                            <p>{{ speed.miles_per_hour }}</p>
+                        </section>
+                        <section>
+                            <h6>kM/h</h6>
+                            <p>{{ speed.kilometers_per_hour }}</p>
+                        </section>
+                        <section>
+                            <h6>kM/s</h6>
+                            <p>{{ speed.kilometers_per_second }}</p>
+                        </section>
                     </div>
 
-                    <h4>Approach</h4>
+                    <h4>Closest Distance to Earth (perigee):</h4>
                     <div class="body-section">
-                        
+                        <section>
+                            <h6>AU</h6>
+                            <p>{{ missDistance.astronomical }}</p>
+                        </section>
+                        <section>
+                            <h6>kM</h6>
+                            <p>{{ missDistance.kilometers }}</p>
+                        </section>
+                        <section>
+                            <h6>Lunar</h6>
+                            <p>{{ missDistance.lunar }}</p>
+                        </section>
+                        <section>
+                            <h6>Miles</h6>
+                            <p>{{ missDistance.miles }}</p>
+                        </section>
                     </div>
                 </section>
 
                 <footer class="modal-footer">
         
-                    <button
-                        type="button"
-                        class="btn-green"
-                        @click="close"
-                    >
-                        Close Modal
+                    <button @click="close">
+                        Back to the Sky
                     </button>
                 </footer>
             </div>
@@ -67,6 +96,17 @@
     name: 'Modal',
     props: {
         content: Object,
+    },
+    computed: {
+        approachData: function() {
+            return this.content.close_approach_data[0];
+        },
+        speed: function() {
+            return this.approachData.relative_velocity;
+        },
+        missDistance: function() {
+            return this.approachData.miss_distance;
+        },
     },
     methods: {
       close() {
@@ -98,6 +138,14 @@
     display: flex;
     flex-direction: column;
     min-width: 50rem;
+
+    h1, h2, h3, h5, h6 {
+        margin-top: 0;
+    }
+
+    h4 {
+        margin-top: 2rem;
+    }
 }
 
 .neo-name, .id {
@@ -130,12 +178,14 @@ h3.id {
 .modal-body {
     position: relative;
     padding: 20px 10px;
+    height: 28rem;
+    overflow-x: auto;
 
     .body-section {
         display: flex;
 
         section {
-            width: 30%;
+            width: 33%;
         }
     }
 }
@@ -151,11 +201,21 @@ h3.id {
     background: transparent;
 }
 
-.btn-green {
-    color: white;
+button {
+    color: $yellow;
     background: $black;
     border: 1px solid $yellow;
     border-radius: 2px;
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    font-size: 120%;
+    transition: all .2s;
+    border-radius: 5px;
+
+    &:hover {
+        cursor: pointer;
+        background: black;
+    }
 }
 
 .modal-fade-enter,

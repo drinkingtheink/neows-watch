@@ -83,6 +83,10 @@ export default {
         justify-content: center;
         align-content: center;
         background-color: rgba(black, 0.4);
+
+        h1 {
+            font-size: 110%;
+        }
     }
 
     .count {
