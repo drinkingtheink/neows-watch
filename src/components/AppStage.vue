@@ -1,7 +1,7 @@
 <template>
   <main>
     <h1>{{ msg }} | NEOWS Watching {{ bodyCount }} objects today</h1>
-    <ObjectDisplay :objectCollection="day1" />
+    <ObjectDisplay :bodyCollection="foundBodies" />
   </main>
 </template>
 
@@ -21,7 +21,7 @@ export default {
       apiUrl: 'https://api.nasa.gov/neo/rest/v1/feed?',
       apiKey: 'Z1Y1LoyLfSDcQJI51fl8E1tYsrZQgnvU09C5pV36',
       bodyCount: 0,
-      day1: null,
+      foundBodies: null,
     }
   },
   computed: {
@@ -34,7 +34,7 @@ export default {
     },
     dataUrl: function() {
       return `${this.apiUrl}start_date=${this.today}&end_date=${this.today}&api_key=${this.apiKey}`
-    }
+    },
   },
   mounted() {
     this.getData();
@@ -47,16 +47,20 @@ export default {
         })
         .then(respJSON => {
           this.bodyCount = respJSON.element_count;
-
           let nearEarthObjects = respJSON.near_earth_objects;
-
-          this.day1 = nearEarthObjects[Object.keys(nearEarthObjects )[0]];
+          let objectCollection = Object.values(nearEarthObjects).flat();
+          objectCollection.sort((a,b) => {
+            if(a.close_approach_data[0].miss_distance.miles > b.close_approach_data[0].miss_distance.miles) return 1;
+            if(a.close_approach_data[0].miss_distance.miles < b.close_approach_data[0].miss_distance.miles) return -1;
+            return 0;
+          });
+          this.foundBodies = objectCollection;
         })
         .catch(error => {
           console.error('There has been a problem with your fetch operation:', error);
         });
       }
-    }
+    },
 }
 </script>
 

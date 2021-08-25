@@ -1,7 +1,7 @@
 <template>
     <div class="object-display-stage">
         <div 
-            v-for="body in objectCollection" 
+            v-for="body in bodyCollection" 
             :key="body.neo_reference_id"
             class="heavenly-body"
         >
@@ -15,7 +15,7 @@
 export default {
     name: 'ObjectDisplay',
     props: {
-        objectCollection: Object
+        bodyCollection: Array
     },
 }
 </script>
