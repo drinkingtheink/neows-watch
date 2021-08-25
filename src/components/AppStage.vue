@@ -5,11 +5,13 @@
       :bodyCollection="foundBodies" 
       :bodyCount="bodyCount"
     />
+    <Earth />
   </main>
 </template>
 
 <script>
 import ObjectDisplay from './ObjectDisplay.vue'
+import Earth from './Earth.vue'
 
 export default {
   name: 'AppStage',
@@ -17,7 +19,8 @@ export default {
     msg: String
   },
   components: {
-    ObjectDisplay
+    ObjectDisplay,
+    Earth,
   },
   data() {
     return {
@@ -79,4 +82,9 @@ h3 {
   color: white;
 }
 
+main {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+}
 </style>
