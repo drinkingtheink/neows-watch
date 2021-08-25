@@ -1,7 +1,10 @@
 <template>
   <main>
     <h1>{{ msg }} | NEOWS Watching {{ bodyCount }} objects today</h1>
-    <ObjectDisplay :bodyCollection="foundBodies" />
+    <ObjectDisplay 
+      :bodyCollection="foundBodies" 
+      :bodyCount="bodyCount"
+    />
   </main>
 </template>
 

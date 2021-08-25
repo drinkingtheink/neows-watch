@@ -5,7 +5,7 @@
             :key="body.neo_reference_id"
             class="heavenly-body"
         >
-            <p>{{ body.name }}</p>
+            <span>{{ body.name }}</span>
             <span class="disc" />
         </div>
     </div>
@@ -15,7 +15,8 @@
 export default {
     name: 'ObjectDisplay',
     props: {
-        bodyCollection: Array
+        bodyCollection: Array,
+        bodyCount: Number
     },
 }
 </script>
@@ -23,6 +24,10 @@ export default {
 <style lang="scss" scoped>
 .object-display-stage {
     position: relative;
+}
+
+.heavenly-body {
+    position: absolute;
 }
 
 $bodyDim: 20px;
@@ -33,6 +38,5 @@ $bodyDim: 20px;
     width: $bodyDim;
     background-color: white;
     display: inline-block;
-    position: absolute;
 }
 </style>
