@@ -3,15 +3,16 @@
         <div class="modal-backdrop">
             <div class="modal">
                 <header class="modal-header">
-                    <slot name="header">
-                    This is the default title!
-                    </slot>
+                    <div>
+                        <h2 class="neo-name">NEO: {{ content.name }}</h2>
+                        <p class="id">ID: {{ content.neo_reference_id }}</p>
+                    </div>
                     <button
-                    type="button"
-                    class="btn-close"
-                    @click="close"
-                    >
-                    x
+                        type="button"
+                        class="btn-close"
+                        @click="close"
+                        >
+                        x
                     </button>
                 </header>
 
@@ -41,6 +42,9 @@
 <script>
   export default {
     name: 'Modal',
+    props: {
+        content: Object,
+    },
     methods: {
       close() {
         this.$emit('close');
@@ -50,7 +54,9 @@
 </script>
 
 <style lang="scss" scoped>
-  .modal-backdrop {
+@import '../styles/palette';
+
+.modal-backdrop {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -60,67 +66,74 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
 
-  .modal {
-    background: #FFFFFF;
+.modal {
+    background:white;
     box-shadow: 2px 2px 20px 1px;
     overflow-x: auto;
     display: flex;
     flex-direction: column;
-  }
+    min-width: 50rem;
+}
 
-  .modal-header,
-  .modal-footer {
+.neo-name, .id {
+    margin: 0;
+    padding: 0;
+}
+
+h3.id {
+    color: $black;
+}
+
+.modal-header,
+.modal-footer {
     padding: 15px;
     display: flex;
-  }
+}
 
-  .modal-header {
+.modal-header {
     position: relative;
     border-bottom: 1px solid #eeeeee;
-    color: #4AAE9B;
     justify-content: space-between;
-  }
+}
 
-  .modal-footer {
+.modal-footer {
     border-top: 1px solid #eeeeee;
     flex-direction: column;
     justify-content: flex-end;
-  }
+}
 
-  .modal-body {
+.modal-body {
     position: relative;
     padding: 20px 10px;
-  }
+}
 
-  .btn-close {
+.btn-close {
     position: absolute;
     top: 0;
     right: 0;
     border: none;
-    font-size: 20px;
     padding: 10px;
     cursor: pointer;
     font-weight: bold;
-    color: #4AAE9B;
     background: transparent;
-  }
+}
 
-  .btn-green {
+.btn-green {
     color: white;
-    background: #4AAE9B;
-    border: 1px solid #4AAE9B;
+    background: $black;
+    border: 1px solid $yellow;
     border-radius: 2px;
-  }
+}
 
-  .modal-fade-enter,
-  .modal-fade-leave-to {
+.modal-fade-enter,
+.modal-fade-leave-to {
     opacity: 0;
-  }
+}
 
-  .modal-fade-enter-active,
-  .modal-fade-leave-active {
+.modal-fade-enter-active,
+.modal-fade-leave-active {
     transition: opacity .5s ease;
-  }
+}
 </style>

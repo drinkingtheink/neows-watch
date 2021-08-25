@@ -1,12 +1,5 @@
 <template>
   <main>
-    <button
-      type="button"
-      class="btn"
-      @click="showModal"
-    >
-      Open Modal!
-    </button>
     <BodyDashboard 
       :bodyCollection="foundBodies" 
       :bodyCount="bodyCount"
@@ -14,25 +7,15 @@
     <Modal
       v-show="modalIsVisible"
       @close="closeModal"
-    >
-      <template v-slot:header>
-        This is a new modal header.
-      </template>
-
-      <template v-slot:body>
-        This is a new modal body.
-      </template>
-
-      <template v-slot:footer>
-        This is a new modal footer.
-      </template>
-    </Modal>
+      :content="modalContent"
+    />
   </main>
 </template>
 
 <script>
 import BodyDashboard from './BodyDashboard.vue';
 import Modal from './Modal.vue';
+import { EventBus } from '../EventBus';
 
 export default {
   name: 'AppStage',
@@ -47,6 +30,7 @@ export default {
       bodyCount: 0,
       foundBodies: null,
       modalIsVisible: false,
+      modalContent: null,
     }
   },
   computed: {
@@ -63,6 +47,11 @@ export default {
   },
   mounted() {
     this.getData();
+
+    EventBus.$on('body-selected', (payload) => {
+      this.modalContent = payload;
+      this.showModal();
+    });
   },
   methods: {
     showModal() {
