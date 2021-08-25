@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h1>{{ msg }} | NEOWS Watch</h1>
+    <h1>{{ msg }} | NEOWS Watching {{ bodyCount }} objects</h1>
   </main>
 </template>
 
@@ -14,14 +14,12 @@ export default {
     return {
       apiUrl: 'https://api.nasa.gov/neo/rest/v1/feed?',
       apiKey: 'Z1Y1LoyLfSDcQJI51fl8E1tYsrZQgnvU09C5pV36',
+      bodyCount: 0,
     }
   },
   computed: {
     today: function() {
       return `2021-08-24`;
-    },
-    tomorrow: function() {
-      return '2021-08-25'
     },
     dataUrl: function() {
       return `${this.apiUrl}start_date=${this.today}&api_key=${this.apiKey}`
@@ -34,13 +32,16 @@ export default {
     getData() {
       fetch(this.dataUrl)
         .then(response => {
-          console.info(`GOT A RESPONSE >>> ${JSON.stringify(response)}`);
+          return response.json();
+        })
+        .then(respJSON => {
+          this.bodyCount = respJSON.element_count;
         })
         .catch(error => {
           console.error('There has been a problem with your fetch operation:', error);
         });
-          }
-        }
+      }
+    }
 }
 </script>
 
