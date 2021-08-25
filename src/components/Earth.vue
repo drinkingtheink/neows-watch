@@ -1,5 +1,5 @@
 <template>
-    <div class="earth">Earth</div>
+    <div class="earth" />
 </template>
 
 <script>

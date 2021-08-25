@@ -1,17 +1,15 @@
 <template>
   <main>
     <h1>{{ msg }} | NEOWS Watching {{ bodyCount }} objects today</h1>
-    <ObjectDisplay 
+    <BodyDashboard 
       :bodyCollection="foundBodies" 
       :bodyCount="bodyCount"
     />
-    <Earth />
   </main>
 </template>
 
 <script>
-import ObjectDisplay from './ObjectDisplay.vue'
-import Earth from './Earth.vue'
+import BodyDashboard from './BodyDashboard.vue'
 
 export default {
   name: 'AppStage',
@@ -19,8 +17,7 @@ export default {
     msg: String
   },
   components: {
-    ObjectDisplay,
-    Earth,
+    BodyDashboard,
   },
   data() {
     return {
@@ -84,7 +81,5 @@ h3 {
 
 main {
   position: relative;
-  overflow: hidden;
-  height: 100vh;
 }
 </style>

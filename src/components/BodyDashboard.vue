@@ -1,9 +1,10 @@
 <template>
-    <div class="object-display-stage">
+    <div class="body-dashboard-stage">
         <div 
             v-for="body in bodyCollection" 
             :key="body.neo_reference_id"
             class="heavenly-body"
+            :style="{ 'right': `${getRandomInt(10, 90)}%`, 'top':  `${getRandomInt(10, 90)}%`}"
         >
             <span>{{ body.name }}</span>
             <span class="disc" />
@@ -13,17 +14,24 @@
 
 <script>
 export default {
-    name: 'ObjectDisplay',
+    name: 'BodyDashboard',
     props: {
         bodyCollection: Array,
         bodyCount: Number
     },
+    methods: {
+        getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+    }
 }
 </script>
 
 <style lang="scss" scoped>
-.object-display-stage {
-    position: relative;
+.body-dashboard-stage {
+    height: 100vh;
 }
 
 .heavenly-body {

@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <AppStage msg="Watchful Eye"/>
+    <Earth />
   </div>
 </template>
 
 <script>
 import AppStage from './components/AppStage.vue'
+import Earth from './components/Earth.vue'
 
 export default {
   name: 'App',
   components: {
-    AppStage
+    AppStage,
+    Earth,
   }
 }
 </script>
@@ -24,10 +27,8 @@ body {
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
 </style>
