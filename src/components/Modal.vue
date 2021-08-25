@@ -1,10 +1,13 @@
 <template>
     <transition name="modal-fade">
-        <div class="modal-backdrop">
+        <div class="modal-backdrop" @click="close">
             <div class="modal">
                 <header class="modal-header">
-                    <div>
-                        <h2 class="neo-name">NEO: {{ content.name }}</h2>
+                    <div v-if="content">
+                        <h2 class="neo-name">
+                            NEO: {{ content.name }}
+                            <a :href="content.nasa_jpl_url" target="_blank">More</a>
+                        </h2>
                         <p class="id">ID: {{ content.neo_reference_id }}</p>
                     </div>
                     <button
@@ -16,22 +19,42 @@
                     </button>
                 </header>
 
-                <section class="modal-body">
-                    <slot name="body">
-                    This is the default body!
-                    </slot>
+                <section class="modal-body" v-if="content">
+                    <h4>Size: (estimated diameter)</h4>
+                    <div class="body-section">
+                        <section>
+                            <p>MIN: {{ content.estimated_diameter.feet.estimated_diameter_min }}</p>
+                            <p>MAX: {{ content.estimated_diameter.feet.estimated_diameter_min }}</p>
+                        </section>
+                        <section>
+                            <p>MIN: {{ content.estimated_diameter.kilometers.estimated_diameter_min }}</p>
+                            <p>MAX: {{ content.estimated_diameter.kilometers.estimated_diameter_min }}</p>
+                        </section>
+                        <section>
+                            <p>MIN: {{ content.estimated_diameter.miles.estimated_diameter_min }}</p>
+                            <p>MAX: {{ content.estimated_diameter.miles.estimated_diameter_min }}</p>
+                        </section>
+                    </div>
+
+                    <h4>Speed</h4>
+                    <div class="body-section">
+                        
+                    </div>
+
+                    <h4>Approach</h4>
+                    <div class="body-section">
+                        
+                    </div>
                 </section>
 
                 <footer class="modal-footer">
-                    <slot name="footer">
-                    This is the default footer!
-                    </slot>
+        
                     <button
-                    type="button"
-                    class="btn-green"
-                    @click="close"
+                        type="button"
+                        class="btn-green"
+                        @click="close"
                     >
-                    Close Modal
+                        Close Modal
                     </button>
                 </footer>
             </div>
@@ -107,6 +130,14 @@ h3.id {
 .modal-body {
     position: relative;
     padding: 20px 10px;
+
+    .body-section {
+        display: flex;
+
+        section {
+            width: 30%;
+        }
+    }
 }
 
 .btn-close {
