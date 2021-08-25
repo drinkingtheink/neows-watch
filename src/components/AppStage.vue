@@ -1,6 +1,5 @@
 <template>
   <main>
-    <h1>Watchful Eye | NEOWS Watching {{ bodyCount }} objects today</h1>
     <BodyDashboard 
       :bodyCollection="foundBodies" 
       :bodyCount="bodyCount"
@@ -68,4 +67,6 @@ export default {
 main {
   position: relative;
 }
+
+
 </style>
