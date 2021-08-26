@@ -198,7 +198,7 @@ $earthDim: 110vw;
 .cloud {
     animation-duration: 12s;
     animation-iteration-count: infinite;
-    animation-fill-mode: forwards;
+    animation-fill-mode: both;
     animation-timing-function: linear;
     animation-name: floaton;
 }
