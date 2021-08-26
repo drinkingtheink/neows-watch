@@ -5,7 +5,7 @@
                 <header class="modal-header">
                     <div v-if="content">
                         <h2 class="neo-name">
-                            NEO: {{ content.name }}
+                            <span>NEO:</span> {{ content.name }}
                             <a :href="content.nasa_jpl_url" target="_blank">More</a>
                         </h2>
                         <p class="id">ID: {{ content.neo_reference_id }}</p>
@@ -40,18 +40,18 @@
                     <div class="body-section">
                         <section>
                             <h6>FEET</h6>
-                            <p><small>MIN:</small> {{ content.estimated_diameter.feet.estimated_diameter_min }}</p>
-                            <p><small>MAX:</small> {{ content.estimated_diameter.feet.estimated_diameter_max }}</p>
+                            <p><small>MIN:</small> {{ formatNumber(content.estimated_diameter.feet.estimated_diameter_min) }}</p>
+                            <p><small>MAX:</small> {{ formatNumber(content.estimated_diameter.feet.estimated_diameter_max) }}</p>
                         </section>
                         <section>
                             <h6>Meters</h6>
-                            <p><small>MIN:</small> {{ content.estimated_diameter.meters.estimated_diameter_min }}</p>
-                            <p><small>MAX:</small> {{ content.estimated_diameter.meters.estimated_diameter_max }}</p>
+                            <p><small>MIN:</small> {{ formatNumber(content.estimated_diameter.meters.estimated_diameter_min) }}</p>
+                            <p><small>MAX:</small> {{ formatNumber(content.estimated_diameter.meters.estimated_diameter_max) }}</p>
                         </section>
                         <section>
                             <h6>MILES</h6>
-                            <p><small>MIN:</small> {{ content.estimated_diameter.miles.estimated_diameter_min }}</p>
-                            <p><small>MAX:</small> {{ content.estimated_diameter.miles.estimated_diameter_max }}</p>
+                            <p><small>MIN:</small> {{ formatNumber(content.estimated_diameter.miles.estimated_diameter_min) }}</p>
+                            <p><small>MAX:</small> {{ formatNumber(content.estimated_diameter.miles.estimated_diameter_max) }}</p>
                         </section>
                     </div>
 
@@ -59,35 +59,31 @@
                     <div class="body-section">
                         <section>
                             <h6>MPH</h6>
-                            <p>{{ speed.miles_per_hour }}</p>
+                            <p>{{ formatNumber(speed.miles_per_hour) }}</p>
                         </section>
                         <section>
                             <h6>kM/h</h6>
-                            <p>{{ speed.kilometers_per_hour }}</p>
+                            <p>{{ formatNumber(speed.kilometers_per_hour) }}</p>
                         </section>
                         <section>
                             <h6>kM/s</h6>
-                            <p>{{ speed.kilometers_per_second }}</p>
+                            <p>{{ formatNumber(speed.kilometers_per_second) }}</p>
                         </section>
                     </div>
 
                     <h4>Closest Distance to Earth (perigee):</h4>
                     <div class="body-section">
                         <section>
-                            <h6>AU</h6>
-                            <p>{{ missDistance.astronomical }}</p>
-                        </section>
-                        <section>
                             <h6>kM</h6>
-                            <p>{{ missDistance.kilometers }}</p>
+                            <p>{{ formatNumber(missDistance.kilometers) }}</p>
                         </section>
                         <section>
                             <h6>Lunar</h6>
-                            <p>{{ missDistance.lunar }}</p>
+                            <p>{{ formatNumber(missDistance.lunar) }}</p>
                         </section>
                         <section>
                             <h6>Miles</h6>
-                            <p>{{ missDistance.miles }}</p>
+                            <p>{{ formatNumber(missDistance.miles) }}</p>
                         </section>
                     </div>
                 </section>
@@ -124,6 +120,9 @@
       close() {
         this.$emit('close');
       },
+      formatNumber(num) {
+          return parseInt(num, 10).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      },
     },
   };
 </script>
@@ -153,6 +152,7 @@
 
     h1, h2, h3, h5, h6 {
         margin-top: 0;
+        text-transform: uppercase;
     }
 
     h4 {
@@ -196,6 +196,10 @@ h3.id {
 
     .body-section {
         display: flex;
+
+        p {
+            font-size: 150%;
+        }
 
         section {
             width: 33%;
