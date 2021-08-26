@@ -1,8 +1,5 @@
 <template>
     <div class="body-dashboard-stage">
-        <header>
-            <h1>Watchful Eye | NEOWS Watching <span class="count">{{ bodyCount }}</span> objects today</h1>
-        </header>
         <Body 
             v-for="body, index in bodyCollection" 
             :key="body.neo_reference_id"
@@ -77,20 +74,5 @@ export default {
 
 .body-dashboard-stage {
     height: 100vh;
-
-    header {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        background-color: rgba(black, 0.4);
-
-        h1 {
-            font-size: 110%;
-        }
-    }
-
-    .count {
-        color: white;
-    }
 }
 </style>

@@ -1,19 +1,19 @@
 <template>
+<div>
   <div id="app">
     <AppStage class="app-main" />
-    <Earth class="gaia" />
   </div>
+
+</div>
 </template>
 
 <script>
 import AppStage from './components/AppStage.vue'
-import Earth from './components/Earth.vue'
 
 export default {
   name: 'App',
   components: {
     AppStage,
-    Earth,
   }
 }
 </script>
@@ -45,10 +45,6 @@ body {
   overflow: hidden;
 
   .app-main {
-    z-index: 2;
-  }
-
-  .gaia {
     z-index: 1;
   }
 

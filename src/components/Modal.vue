@@ -5,7 +5,7 @@
                 <header class="modal-header">
                     <div v-if="content">
                         <h2 class="neo-name"><span>NEO:</span> {{ content.name }}</h2>
-                        <p class="neo-id">ID: {{ content.neo_reference_id }} <a class="more-info" :href="content.nasa_jpl_url" target="_blank">More Info</a></p>
+                        <p class="neo-id"><span>ID: {{ content.neo_reference_id }}</span> <a class="more-info" :href="content.nasa_jpl_url" target="_blank">More Info</a></p>
                     </div>
                     <button
                         type="button"
@@ -86,7 +86,6 @@
                 </section>
 
                 <footer class="modal-footer">
-        
                     <button @click="close">
                         Back to the Sky
                     </button>
@@ -146,6 +145,7 @@
     display: flex;
     flex-direction: column;
     min-width: 50rem;
+    z-index: 100;
 
     h1, h2, h3, h5, h6 {
         margin-top: 0;
@@ -166,9 +166,13 @@
 p.neo-id {
     color: $black;
     font-size: 150%;
-    opacity: 0.8;
     padding: 0;
     margin: 0.25rem 0 0 0;
+    display: flex;
+
+    span {
+        opacity: 0.6;
+    }
 }
 
 .modal-header,
@@ -182,22 +186,23 @@ p.neo-id {
     position: relative;
     border-bottom: 1px solid #eeeeee;
     justify-content: space-between;
+}
 
-    a.more-info {
-        text-decoration: none;
-        font-size: 50%;
-        padding: 5px;
-        background-color: $black;
+a.more-info {
+    text-decoration: none;
+    font-size: 50%;
+    padding: 5px;
+    background-color: $black;
+    color: white;
+    border-radius: 5px;
+    transition: all .2s;
+    border: 2px solid white;
+    margin-left: .5rem;
+
+    &:hover {
+        background-color: black;
+        border-color: $yellow;
         color: $yellow;
-        border-radius: 5px;
-        transition: all .2s;
-        border: 2px solid $yellow;
-        margin-top: -10px;
-
-        &:hover {
-            background-color: black;
-            border-color: $black;
-        }
     }
 }
 

@@ -1,7 +1,9 @@
 <template>
     <div class="heavenly-body" @click="bodySelect(body)">
         <span class="label">{{ body.name }}</span>
-        <button class="disc" />
+        <button 
+        class="disc"
+        :style="{ 'height': `${relativeSize}px`, 'width': `${relativeSize}px` }" />
     </div>
 </template>
 
@@ -12,6 +14,19 @@ export default {
     name: 'Body',
     props: {
         body: Object,
+    },
+    computed: {
+        size() {
+            return this.body.estimated_diameter.feet;
+        },
+        relativeSize() {
+            let newFig = parseInt(this.size.estimated_diameter_max, 10).toFixed(2) / 10;
+
+            if (newFig < 20) {
+                newFig = 20;
+            }
+            return newFig;
+        }
     },
     methods: {
         bodySelect(body) {
@@ -40,6 +55,7 @@ export default {
     animation: appear 1.5s;
     animation-direction: forward;
     animation-fill-mode: both;
+    animation-timing-function: ease-in;
 }
 
 .heavenly-body {
@@ -69,12 +85,8 @@ export default {
     }
 }
 
-$bodyDim: 20px;
-
 .disc {
     border-radius: 50%;
-    height: $bodyDim;
-    width: $bodyDim;
     background-color: white;
     display: inline-block;
     margin: 0 auto;

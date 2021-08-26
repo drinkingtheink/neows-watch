@@ -1,25 +1,31 @@
 <template>
-  <main>
-    <BodyDashboard 
-      :bodyCollection="foundBodies" 
-      :bodyCount="bodyCount"
-    />
+  <div>
+    <header>
+        <h1>Watchful Eye | NEOWS Watching <span class="count">{{ bodyCount }}</span> objects today</h1>
+    </header>
     
-    <section class="add-date">
-      <span>Add your own State Date: </span>
-    </section>
-    
+    <main>
+      <BodyDashboard 
+        :bodyCollection="foundBodies" 
+        :bodyCount="bodyCount"
+        class="body-dashboard-wrapper"
+      />
+    </main>
+    <Earth class="gaia" />
+      
     <Modal
       v-show="modalIsVisible"
       @close="closeModal"
       :content="modalContent"
+      class="modal-wrapper"
     />
-  </main>
+  </div>
 </template>
 
 <script>
 import BodyDashboard from './BodyDashboard.vue';
 import Modal from './Modal.vue';
+import Earth from './Earth.vue'
 import { EventBus } from '../EventBus';
 
 export default {
@@ -27,6 +33,7 @@ export default {
   components: {
     BodyDashboard,
     Modal,
+    Earth,
   },
   data() {
     return {
@@ -93,7 +100,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+header {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: rgba(black, 0.4);
+
+    h1 {
+        font-size: 110%;
+    }
+
+    .count {
+      color: white;
+  }
+}
+
 main {
   position: relative;
+  z-index: 2;
+}
+
+.body-dashboard-wrapper {
+  z-index: 3;
+}
+
+.modal-wrapper {
+  z-index: 4;
 }
 </style>
