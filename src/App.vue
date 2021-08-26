@@ -3,7 +3,6 @@
   <div id="app">
     <AppStage class="app-main" />
   </div>
-
 </div>
 </template>
 

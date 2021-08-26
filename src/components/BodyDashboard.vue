@@ -22,7 +22,7 @@ export default {
     },
     props: {
         bodyCollection: Array,
-        bodyCount: Number
+        bodyCount: Number,
     },
     methods: {
         getRandomInt(min, max) {
