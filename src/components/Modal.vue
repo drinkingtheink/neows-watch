@@ -40,18 +40,18 @@
                     <div class="body-section">
                         <section>
                             <h6>FEET</h6>
-                            <p>MIN: {{ content.estimated_diameter.feet.estimated_diameter_min }}</p>
-                            <p>MAX: {{ content.estimated_diameter.feet.estimated_diameter_max }}</p>
+                            <p><small>MIN:</small> {{ content.estimated_diameter.feet.estimated_diameter_min }}</p>
+                            <p><small>MAX:</small> {{ content.estimated_diameter.feet.estimated_diameter_max }}</p>
                         </section>
                         <section>
-                            <h6>kM</h6>
-                            <p>MIN: {{ content.estimated_diameter.kilometers.estimated_diameter_min }}</p>
-                            <p>MAX: {{ content.estimated_diameter.kilometers.estimated_diameter_max }}</p>
+                            <h6>Meters</h6>
+                            <p><small>MIN:</small> {{ content.estimated_diameter.meters.estimated_diameter_min }}</p>
+                            <p><small>MAX:</small> {{ content.estimated_diameter.meters.estimated_diameter_max }}</p>
                         </section>
                         <section>
                             <h6>MILES</h6>
-                            <p>MIN: {{ content.estimated_diameter.miles.estimated_diameter_min }}</p>
-                            <p>MAX: {{ content.estimated_diameter.miles.estimated_diameter_max }}</p>
+                            <p><small>MIN:</small> {{ content.estimated_diameter.miles.estimated_diameter_min }}</p>
+                            <p><small>MAX:</small> {{ content.estimated_diameter.miles.estimated_diameter_max }}</p>
                         </section>
                     </div>
 
@@ -241,5 +241,10 @@ button {
 .modal-fade-enter-active,
 .modal-fade-leave-active {
     transition: opacity .5s ease;
+}
+
+small {
+    font-size: 50%;
+    font-weight: bold;
 }
 </style>

@@ -4,6 +4,11 @@
       :bodyCollection="foundBodies" 
       :bodyCount="bodyCount"
     />
+    
+    <section class="add-date">
+      <span>Add your own State Date: </span>
+    </section>
+    
     <Modal
       v-show="modalIsVisible"
       @close="closeModal"
@@ -31,6 +36,9 @@ export default {
       foundBodies: null,
       modalIsVisible: false,
       modalContent: null,
+      userStartYear: null,
+      userStartMonth: null,
+      userStartDay: null,
     }
   },
   computed: {

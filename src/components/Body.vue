@@ -1,7 +1,7 @@
 <template>
-    <div class="heavenly-body">
+    <div class="heavenly-body" @click="bodySelect(body)">
         <span class="label">{{ body.name }}</span>
-        <button class="disc" @click="bodySelect(body)" />
+        <button class="disc" />
     </div>
 </template>
 
@@ -48,6 +48,25 @@ export default {
     display: flex;
     flex-direction: column;
     align-content: center;
+    transition: all .2s;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 1;
+
+        .disc, .label {
+            opacity: 1;
+        }
+    }
+
+    .disc, .label {
+        opacity: 0.6;
+        transition: all .2s;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
 
 $bodyDim: 20px;
