@@ -31,8 +31,8 @@
                         </section>
                         <section>
                             <h6>THREAT TO EARTH</h6>
-                            <p v-if="content.is_potentially_hazardous_asteroid">POTENTIALLY HAZARDOUS</p>
-                            <p v-else>NO THREAT</p>
+                            <p class="threat-detected" v-if="content.is_potentially_hazardous_asteroid">POTENTIALLY HAZARDOUS</p>
+                            <p class="no-threat" v-else>NO THREAT</p>
                         </section>
                     </div>
 
@@ -180,6 +180,22 @@ h3.id {
     position: relative;
     border-bottom: 1px solid #eeeeee;
     justify-content: space-between;
+
+    a {
+        text-decoration: none;
+        font-size: 50%;
+        padding: 10px;
+        background-color: $black;
+        color: $yellow;
+        border-radius: 10px;
+        transition: all .2s;
+        border: 2px solid $yellow;
+
+        &:hover {
+            background-color: black;
+            border-color: $black;
+        }
+    }
 }
 
 .modal-footer {
@@ -209,8 +225,8 @@ h3.id {
 
 .btn-close {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: .5rem;
+    right: 1rem;
     border: none;
     padding: 10px;
     cursor: pointer;
@@ -250,5 +266,14 @@ button {
 small {
     font-size: 50%;
     font-weight: bold;
+}
+
+.no-threat {
+    background-color: $lightgreen;
+    color: $green;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    margin-top: -10px;
 }
 </style>

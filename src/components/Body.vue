@@ -60,7 +60,7 @@ export default {
     }
 
     .disc, .label {
-        opacity: 0.6;
+        opacity: 0.75;
         transition: all .2s;
 
         &:hover {
