@@ -26,7 +26,7 @@ export default {
 
 @keyframes appear {
   from {
-    transform: translateX(100%);
+    transform: translateX(2000%);
     opacity: 0;
   }
 
@@ -37,7 +37,7 @@ export default {
 }
 
 @mixin bodyAppear {
-    animation: appear 1s;
+    animation: appear 1.5s;
     animation-direction: forward;
     animation-fill-mode: both;
 }

@@ -4,11 +4,8 @@
             <div class="modal">
                 <header class="modal-header">
                     <div v-if="content">
-                        <h2 class="neo-name">
-                            <span>NEO:</span> {{ content.name }}
-                            <a :href="content.nasa_jpl_url" target="_blank">More</a>
-                        </h2>
-                        <p class="id">ID: {{ content.neo_reference_id }}</p>
+                        <h2 class="neo-name"><span>NEO:</span> {{ content.name }}</h2>
+                        <p class="neo-id">ID: {{ content.neo_reference_id }} <a class="more-info" :href="content.nasa_jpl_url" target="_blank">More Info</a></p>
                     </div>
                     <button
                         type="button"
@@ -55,7 +52,7 @@
                         </section>
                     </div>
 
-                    <h4>Speed:</h4>
+                    <h4>Speed (relative velocity):</h4>
                     <div class="body-section">
                         <section>
                             <h6>MPH</h6>
@@ -163,10 +160,15 @@
 .neo-name, .id {
     margin: 0;
     padding: 0;
+    font-size: 250%;
 }
 
-h3.id {
+p.neo-id {
     color: $black;
+    font-size: 150%;
+    opacity: 0.8;
+    padding: 0;
+    margin: 0.25rem 0 0 0;
 }
 
 .modal-header,
@@ -181,15 +183,16 @@ h3.id {
     border-bottom: 1px solid #eeeeee;
     justify-content: space-between;
 
-    a {
+    a.more-info {
         text-decoration: none;
         font-size: 50%;
-        padding: 10px;
+        padding: 5px;
         background-color: $black;
         color: $yellow;
-        border-radius: 10px;
+        border-radius: 5px;
         transition: all .2s;
         border: 2px solid $yellow;
+        margin-top: -10px;
 
         &:hover {
             background-color: black;
@@ -206,12 +209,14 @@ h3.id {
 
 .modal-body {
     position: relative;
-    padding: 20px 10px;
+    padding: 1rem 2rem;
     height: 28rem;
     overflow-x: auto;
 
     .body-section {
         display: flex;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(black, 0.1);
 
         p {
             font-size: 150%;
