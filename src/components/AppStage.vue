@@ -23,7 +23,7 @@
         type="number"
         id="year" 
         name="year"
-        min="1700" 
+        min="1900" 
         max="2600"
         maxlength="4" />
 
