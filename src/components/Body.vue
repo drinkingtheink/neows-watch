@@ -26,6 +26,10 @@ export default {
             if (newFig < 20) {
                 newFig = 20;
             }
+
+            if (newFig > 400) {
+                newFig = 400;
+            }
             return newFig;
         },
         potentialThreat() {
