@@ -2,7 +2,7 @@
   <div>
     <header>
         <h1 v-if="searching">Searching the Skies...</h1>
-        <h1 v-else>Watchful Eye | NEOWS Watches <span class="count">{{ bodyCount }}</span> objects <span v-if="todaySearchIsActive" class="today-indicator">today</span><span v-else class="on-date">on {{ dateToSearch }}</span></h1>
+        <h1 v-else>WATCHFUL EYE | NEOWS Watches <span class="count">{{ bodyCount }}</span> objects <span v-if="todaySearchIsActive" class="today-indicator">today</span><span v-else class="on-date">on {{ dateToSearch }}</span></h1>
     </header>
     
     <main>
@@ -15,7 +15,7 @@
     <Earth class="gaia" />
 
     <section class="date-editor">
-      <small>Explore Other Dates: </small>
+      <small>Explore Other Dates Using Your Up and Down Arrows or by Typing: </small>
       
       <label for="year">Year</label>
       <input 
@@ -204,11 +204,12 @@ export default {
   small {
     text-transform: uppercase;
     margin-right: 1rem;
+    max-width: 22rem;
   }
 
   input {
     color: $black;
-    padding: 5px;
+    padding: 5px 10px;
     font-size: 110%;
     border-radius: 5px;
     outline: none;
