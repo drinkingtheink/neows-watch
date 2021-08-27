@@ -175,6 +175,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/palette';
+
 $earthDim: 110vw;
 
 .earth {
@@ -205,9 +207,9 @@ $earthDim: 110vw;
 .clouds {
     width: 60%;
     margin: 0 auto;
-    height: 20rem;
+    height: 80rem;
     position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
+    top: -20rem; left: 0; bottom: 0; right: 0;
 }
 
 .cloud {
@@ -218,21 +220,14 @@ $earthDim: 110vw;
 }
 
 .cloud {
-	background: #fff;
-	background: -moz-linear-gradient(top,  #fff 5%, #f1f1f1 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(5%,#fff), color-stop(100%,#f1f1f1));
-	background: -webkit-linear-gradient(top,  #fff 5%,#f1f1f1 100%);
-	background: -o-linear-gradient(top,  #fff 5%,#f1f1f1 100%);
-	background: -ms-linear-gradient(top,  #fff 5%,#f1f1f1 100%);
-	background: linear-gradient(top,  #fff 5%,#f1f1f1 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#f1f1f1',GradientType=0 );
+	background-color: white;
 	border-radius: 100px;
 	box-shadow: 0 8px 5px rgba(0, 0, 0, 0.1);
 	position: relative;
 }
 
 .cloud:after, .cloud:before {
-    background: #fff;
+    background: white;
 	content: '';
 	position: absolute;
 	z-indeX: -1;
@@ -260,10 +255,19 @@ $earthDim: 110vw;
 
 .cloud2 {
     transform: scale(0.75) rotate(180deg);
+    background-color: $yellow;
+}
+
+.cloud2:after, .cloud2:before {
+    background-color: $yellow;
 }
 
 .cloud3 {
-    transform: scale(1, 2);
+    background-color: pink;
+}
+
+.cloud2:after, .cloud2:before {
+    background-color: pink;
 }
 
 .cloud4 {
