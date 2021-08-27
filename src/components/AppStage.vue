@@ -23,8 +23,8 @@
         type="number"
         id="year" 
         name="year"
-        min="1950" 
-        max="2100"
+        min="1700" 
+        max="2600"
         maxlength="4" />
 
       <label for="month">Month</label>
@@ -88,14 +88,22 @@ export default {
   },
   computed: {
     today: function() {
-      var today = new Date();
-      var dd = String(today.getDate()).padStart(2, '0');
-      var mm = String(today.getMonth() + 1).padStart(2, '0');
-      var yyyy = today.getFullYear();
-      return `${yyyy}-${mm}-${dd}`;
+      return new Date();
+    },
+    currentDay: function() {
+      return String(this.today.getDate()).padStart(2, '0');
+    },
+    currentMonth: function() {
+      return String(this.today.getMonth() + 1).padStart(2, '0');
+    },
+    currentYear: function() {
+      return this.today.getFullYear();
+    },
+    searchToday: function() {
+      return `${this.currentYear}-${this.currentMonth}-${this.currentDay}`;
     },
     dateToSearch: function() {
-      return this.newDateReady ? `${this.userStartYear}-${this.userStartMonth}-${this.userStartDay}` : this.today;
+      return this.newDateReady ? `${this.userStartYear}-${this.userStartMonth}-${this.userStartDay}` : this.searchToday;
     },
     dataUrl: function() {
       return `${this.apiUrl}start_date=${this.dateToSearch}&end_date=${this.dateToSearch}&api_key=${this.apiKey}`
@@ -110,7 +118,16 @@ export default {
   watch: {
     newDateReady: function () {
       this.getData();
-    }
+    },
+    userStartYear: function () {
+      if (this.newDateReady) this.getData();
+    },
+    userStartMonth: function () {
+      if (this.newDateReady) this.getData();
+    },
+    userStartDay: function () {
+      if (this.newDateReady) this.getData();
+    },
   },
   mounted() {
     this.getData();
