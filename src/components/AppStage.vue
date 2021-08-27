@@ -18,7 +18,7 @@
         class="body-dashboard-wrapper"
       />
     </main>
-    <Earth class="gaia" />
+    <Earth />
 
     <section class="date-editor">
       <small>Explore Other Dates Using Your Up and Down Arrows or by Typing: </small>
