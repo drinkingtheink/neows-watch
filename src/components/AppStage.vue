@@ -23,8 +23,8 @@
         type="number"
         id="year" 
         name="year"
-        min="10" 
-        max="9999"
+        min="1950" 
+        max="2100"
         maxlength="4" />
 
       <label for="month">Month</label>
