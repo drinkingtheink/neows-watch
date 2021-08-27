@@ -266,7 +266,7 @@ $earthDim: 110vw;
     background-color: pink;
 }
 
-.cloud2:after, .cloud2:before {
+.cloud3:after, .cloud2:before {
     background-color: pink;
 }
 

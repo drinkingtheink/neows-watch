@@ -2,7 +2,7 @@
   <div>
     <header>
         <h1 v-if="searching">Searching the Skies...</h1>
-        <h1 v-else>Watchful Eye | NEOWS Watches <span class="count">{{ bodyCount }}</span> objects <span v-if="todaySearchIsActive">today</span><span v-else>on {{ dateToSearch }}</span></h1>
+        <h1 v-else>Watchful Eye | NEOWS Watches <span class="count">{{ bodyCount }}</span> objects <span v-if="todaySearchIsActive" class="today-indicator">today</span><span v-else class="on-date">on {{ dateToSearch }}</span></h1>
     </header>
     
     <main>
@@ -205,6 +205,15 @@ export default {
     text-transform: uppercase;
     margin-right: 1rem;
   }
+
+  input {
+    color: $black;
+    padding: 5px;
+    font-size: 110%;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+  }
 }
 
 header {
@@ -219,6 +228,7 @@ header {
 
     .count {
       color: white;
+      font-family: inherit;
   }
 }
 
@@ -233,5 +243,11 @@ main {
 
 .modal-wrapper {
   z-index: 4;
+}
+
+.today-indicator, .on-date {
+  font-family: inherit;
+  color: white;
+  text-transform: uppercase;
 }
 </style>
