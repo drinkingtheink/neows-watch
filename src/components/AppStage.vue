@@ -9,6 +9,10 @@
           <span v-if="todaySearchIsActive" class="today-indicator">today</span>
           <span v-else class="on-date">on {{ dateToSearch }}</span>
         </h1>
+
+        <section class="threat-stage">
+          <p>{{ threatCount }} threat<span v-if="threatCount > 1 || threatCount < 1">s</span> detected</p>
+        </section>
     </header>
     
     <main>
@@ -85,7 +89,7 @@ export default {
       searching: false,
       searchError: false,
       bodyCount: 0,
-      foundBodies: null,
+      foundBodies: [],
       modalIsVisible: false,
       modalContent: null,
       userStartYear: null,
@@ -120,6 +124,17 @@ export default {
     },
     todaySearchIsActive: function() {
       return this.searchToday === this.dateToSearch;
+    },
+    threatCount: function() {
+      let threats = [];
+
+      this.foundBodies.forEach((body) => {
+        if (body.is_potentially_hazardous_asteroid) {
+          threats.push({ body })
+        }
+      })
+
+      return threats.length;
     },
   },
   watch: {
@@ -163,6 +178,7 @@ export default {
     getData() {
       this.searching = true;
       this.searchError = false;
+      
       fetch(this.dataUrl)
         .then(response => {
           return response.json();
