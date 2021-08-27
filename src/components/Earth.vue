@@ -7,7 +7,7 @@
                     :key="cloud.key" 
                     :class="cloud.type" 
                     class="cloud" 
-                    :style="{ 'right': `${cloud.right}%`, 'top': `${cloud.top}%`, 'filter': `blur(${getRandomInt(6, 20)}px)`, 'opacity': `0.${getRandomInt(4, 8)}`, 'animation-duration': `${getRandomInt(12, 20)}s`, 'height': `${getRandomInt(8, 20)}`, 'width': `${getRandomInt(8, 20)}` }"
+                    :style="{ 'right': `${cloud.right}%`, 'top': `${cloud.top}%`, 'filter': `blur(${getRandomInt(3, 15)}px)`, 'opacity': `0.${getRandomInt(4, 8)}`, 'animation-duration': `${getRandomInt(12, 20)}s`, 'height': `${getRandomInt(8, 20)}`, 'width': `${getRandomInt(8, 20)}` }"
                 />
             </transition-group>
         </div>
