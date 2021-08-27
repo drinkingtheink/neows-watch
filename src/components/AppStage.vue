@@ -1,7 +1,8 @@
 <template>
   <div>
     <header>
-        <h1>Watchful Eye | NEOWS Watching <span class="count">{{ bodyCount }}</span> objects today</h1>
+        <h1 v-if="searching">Searching the Skies...</h1>
+        <h1 v-else>Watchful Eye | NEOWS Watch<span v-if="todaySearchIsActive">ing</span><span v-else>ed</span> <span class="count">{{ bodyCount }}</span> objects <span v-if="todaySearchIsActive">today</span><span v-else>on {{ dateToSearch }}</span></h1>
     </header>
     
     <main>
@@ -12,6 +13,41 @@
       />
     </main>
     <Earth class="gaia" />
+
+    <section class="date-editor">
+      <small>Add your own date in YYYY-MM-DD format</small>
+      
+      <label for="year">Year</label>
+      <input 
+        v-model.number="userStartYear" 
+        type="number"
+        id="year" 
+        name="year"
+        min="10" 
+        max="9999"
+        maxlength="4" />
+
+      <label for="month">Month</label>
+      <input 
+        v-model.number="userStartMonth" 
+        type="number"
+        id="month" 
+        name="month"
+        min="01" 
+        max="12"
+        maxlength="2" />
+
+      <label for="day">Day</label>
+      <input 
+        v-model.number="userStartDay" 
+        type="number"
+        id="day" 
+        name="day"
+        min="01" 
+        max="32"
+        maxlength="2" />
+        
+    </section>
       
     <Modal
       v-show="modalIsVisible"
@@ -58,9 +94,23 @@ export default {
       var yyyy = today.getFullYear();
       return `${yyyy}-${mm}-${dd}`;
     },
-    dataUrl: function() {
-      return `${this.apiUrl}start_date=${this.today}&end_date=${this.today}&api_key=${this.apiKey}`
+    dateToSearch: function() {
+      return this.newDateReady ? `${this.userStartYear}-${this.userStartMonth}-${this.userStartDay}` : this.today;
     },
+    dataUrl: function() {
+      return `${this.apiUrl}start_date=${this.dateToSearch}&end_date=${this.dateToSearch}&api_key=${this.apiKey}`
+    },
+    newDateReady: function() {
+      return this.userStartYear && this.userStartMonth && this.userStartDay;
+    },
+    todaySearchIsActive: function() {
+      return this.today === this.dateToSearch;
+    },
+  },
+  watch: {
+    newDateReady: function () {
+      this.getData();
+    }
   },
   mounted() {
     this.getData();
@@ -107,6 +157,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/palette';
+
+.date-editor {
+  z-index: 4;
+  background-color: rgba(black, 0.8);
+  padding: 1rem;
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  color: $yellow;
+
+  label, small {
+    color: $yellow;
+  }
+
+  label {
+    margin: 0 0.5rem 0 1rem;
+  }
+}
+
 header {
     display: flex;
     justify-content: center;

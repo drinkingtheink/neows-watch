@@ -29,11 +29,11 @@ body {
   margin: 0;
   padding: 0;
 
-  p, span, li {
+  p, span, li, small {
     font-family: $bodyFont;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2, h3, h4, h5, h6, label {
     font-family: $headerFont;
   }
 }
@@ -53,6 +53,10 @@ body {
 
   h3 {
     color: white;
+  }
+
+  label {
+    text-transform: uppercase;
   }
 }
 </style>
