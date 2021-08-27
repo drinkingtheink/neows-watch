@@ -2,7 +2,16 @@
   <div>
     <header>
         <h1 v-if="searching">Searching the Skies...</h1>
-        <h1 v-else>WATCHFUL EYE | NEOWS Watches <span class="count">{{ bodyCount }}</span> objects <span v-if="todaySearchIsActive" class="today-indicator">today</span><span v-else class="on-date">on {{ dateToSearch }}</span></h1>
+        <h1 v-else>
+          WATCHFUL EYE | NEOWS Watches 
+          <span class="count">{{ bodyCount }}</span> 
+          objects 
+          <span v-if="todaySearchIsActive" class="today-indicator">today</span>
+          <span v-else class="on-date">
+            on {{ dateToSearch }}
+            <button class="back-to-today" @click="setSearchToToday">Back to Today</button>
+          </span>
+        </h1>
     </header>
     
     <main>
@@ -148,6 +157,11 @@ export default {
     closeModal() {
       this.modalIsVisible = false;
     },
+    setSearchToToday() {
+      this.userStartYear = this.currentYear;
+      this.userStartMonth = this.currentMonth;
+      this.userStartDay = this.currentDay;
+    },
     getData() {
       this.searching = true;
       this.searchError = false;
@@ -250,5 +264,9 @@ main {
   font-family: inherit;
   color: white;
   text-transform: uppercase;
+}
+
+.back-to-today {
+  transform: scale(0.5);
 }
 </style>

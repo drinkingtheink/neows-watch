@@ -58,5 +58,24 @@ body {
   label {
     text-transform: uppercase;
   }
+
+  button:not(.heavenly-body) {
+    color: $black;
+    background: $yellow;
+    border: 2px solid $yellow;
+    border-radius: 2px;
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    font-size: 120%;
+    transition: all .2s;
+    border-radius: 20px;
+
+    &:hover {
+        cursor: pointer;
+        background: black;
+        color: $yellow;
+        border-color: $yellow;
+    }
+  }
 }
 </style>

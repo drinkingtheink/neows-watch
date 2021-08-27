@@ -1,10 +1,10 @@
 <template>
-    <div class="heavenly-body" @click="bodySelect(body)">
+    <button class="heavenly-body" :class="{ 'potential-threat': potentialThreat }" @click="bodySelect(body)">
         <span class="label">{{ body.name }}</span>
-        <button 
-        class="disc"
-        :style="{ 'height': `${relativeSize}px`, 'width': `${relativeSize}px` }" />
-    </div>
+        <span 
+            class="disc"
+            :style="{ 'height': `${relativeSize}px`, 'width': `${relativeSize}px` }" />
+    </button>
 </template>
 
 <script>
@@ -26,7 +26,10 @@ export default {
                 newFig = 20;
             }
             return newFig;
-        }
+        },
+        potentialThreat() {
+            return this.body.is_potentially_hazardous_asteroid;
+        },
     },
     methods: {
         bodySelect(body) {
@@ -65,6 +68,8 @@ export default {
     flex-direction: column;
     align-content: center;
     transition: all .2s;
+    border: none;
+    background: transparent;
 
     &:hover {
         cursor: pointer;
@@ -81,6 +86,18 @@ export default {
 
         &:hover {
             cursor: pointer;
+        }
+    }
+
+    &.potential-threat {
+        .label {
+            background-color: rgba($red, 0.5);
+            color: white;
+            border-left: 4px $red;
+        }
+
+        .disc {
+            background-color: $lightred;
         }
     }
 }
