@@ -39,6 +39,8 @@ export default {
     return {
       apiUrl: 'https://api.nasa.gov/neo/rest/v1/feed?',
       apiKey: 'Z1Y1LoyLfSDcQJI51fl8E1tYsrZQgnvU09C5pV36',
+      searching: false,
+      searchError: false,
       bodyCount: 0,
       foundBodies: null,
       modalIsVisible: false,
@@ -76,6 +78,8 @@ export default {
       this.modalIsVisible = false;
     },
     getData() {
+      this.searching = true;
+      this.searchError = false;
       fetch(this.dataUrl)
         .then(response => {
           return response.json();
@@ -90,9 +94,12 @@ export default {
             return 0;
           });
           this.foundBodies = objectCollection;
+          this.searching = false;
         })
         .catch(error => {
           console.error('There has been a problem with your fetch operation:', error);
+          this.searching = false;
+          this.searchError = true;
         });
       }
     },

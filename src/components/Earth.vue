@@ -1,13 +1,15 @@
 <template>
     <div class="earth">
         <div class="clouds">
-            <div 
-                v-for="cloud in clouds" 
-                :key="cloud.key" 
-                :class="cloud.type" 
-                class="cloud" 
-                :style="{ 'right': `${cloud.right}%`, 'top': `${cloud.top}%`, 'filter': `blur(${getRandomInt(6, 20)}px)`, 'opacity': `0.${getRandomInt(3, 9)}` }"
-            />
+            <transition-group name="body-anim">
+                <div 
+                    v-for="cloud in clouds" 
+                    :key="cloud.key" 
+                    :class="cloud.type" 
+                    class="cloud" 
+                    :style="{ 'right': `${cloud.right}%`, 'top': `${cloud.top}%`, 'filter': `blur(${getRandomInt(6, 20)}px)`, 'opacity': `0.${getRandomInt(4, 8)}`, 'animation-duration': `${getRandomInt(12, 20)}s`, 'height': `${getRandomInt(8, 20)}`, 'width': `${getRandomInt(8, 20)}` }"
+                />
+            </transition-group>
         </div>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 2000 2000" style="enable-background:new 0 0 2000 2000;" xml:space="preserve">
@@ -143,23 +145,26 @@ export default {
             clouds: null,
         }
     },
-    beforeMount() {
-        let clouds = [];
-        let cloudCount = this.getRandomInt(6, 10);
-        let cloudClasses = ['cloud1', 'cloud2', 'cloud3'];
-
-        for(var i=0; i < cloudCount; i++){
-            clouds.push({
-                type: cloudClasses[Math.floor(Math.random() * cloudClasses.length)],
-                key: (Math.random() + 1).toString(36).substring(7),
-                right: this.getRandomInt(0, -90),
-                top: this.getRandomInt(0, 40),
-            })
-        }
-
-        this.clouds = clouds;
+    mounted() {
+        this.generateClouds();
     },
     methods: {
+        generateClouds() {
+            let clouds = [];
+            let cloudCount = this.getRandomInt(40, 60);
+            let cloudClasses = ['cloud1', 'cloud2', 'cloud3', 'cloud4'];
+
+            for(var i=0; i < cloudCount; i++){
+                clouds.push({
+                    type: cloudClasses[Math.floor(Math.random() * cloudClasses.length)],
+                    key: (Math.random() + 1).toString(36).substring(7),
+                    right: this.getRandomInt(10, -20),
+                    top: this.getRandomInt(0, 40),
+                })
+            }
+
+            this.clouds = clouds;
+        },
         getRandomInt(min, max) {
             min = Math.ceil(min);
             max = Math.floor(max);
@@ -181,6 +186,16 @@ $earthDim: 110vw;
 	.st1{fill:#8BC23F;}
 }
 
+.modal-body-anim-enter,
+.modal-body-anim-leave-to {
+    opacity: 0;
+}
+
+.modal-body-anim-enter-active,
+.modal-body-anim-leave-active {
+    transition: opacity .5s ease;
+}
+
 //CLOUDS
 @keyframes floaton {
     from { transform: translateX(100%) translateZ(0); }
@@ -196,91 +211,62 @@ $earthDim: 110vw;
 }
 
 .cloud {
-    animation-duration: 12s;
     animation-iteration-count: infinite;
     animation-fill-mode: both;
     animation-timing-function: linear;
     animation-name: floaton;
 }
 
-//cloud 1
-.cloud1 {
-	width: 150px; height: 30px;
+.cloud {
 	background: #fff;
-	
+	background: -moz-linear-gradient(top,  #fff 5%, #f1f1f1 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(5%,#fff), color-stop(100%,#f1f1f1));
+	background: -webkit-linear-gradient(top,  #fff 5%,#f1f1f1 100%);
+	background: -o-linear-gradient(top,  #fff 5%,#f1f1f1 100%);
+	background: -ms-linear-gradient(top,  #fff 5%,#f1f1f1 100%);
+	background: linear-gradient(top,  #fff 5%,#f1f1f1 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#f1f1f1',GradientType=0 );
 	border-radius: 100px;
-	
-	position: relative; 
+	box-shadow: 0 8px 5px rgba(0, 0, 0, 0.1);
+	position: relative;
 }
 
-.cloud1:before, .cloud1:after {
+.cloud:after, .cloud:before {
+    background: #fff;
 	content: '';
-	position: absolute; 
-	background: #fff;
-	width: 100px; height: 80px;
-	position: absolute; top: -15px; left: 10px;
-	
+	position: absolute;
+	z-indeX: -1;
+}
+
+.cloud:after {
 	border-radius: 100px;
-
-	transform: rotate(30deg);
+	height: 20px;
+	left: 50px;
+	top: -50px;
+	width: 20px;
 }
 
-.cloud1:after {
-	width: 120px; height: 120px;
-	top: -55px; left: auto; right: 15px;
-}
-
-// cloud 2
-.cloud2 {
-	width: 90px; height: 25px;
-	background: #fff;
-	
-	border-radius: 70px;
-	
-	position: relative; 
-}
-
-.cloud2:before, .cloud2:after {
-	content: '';
-	position: absolute; 
-	background: #fff;
-	width: 60px; height: 50px;
-	position: absolute; top: -5px; left: 8px;
-	
-	border-radius: 100px;
-
-	transform: rotate(65deg);
-}
-
-.cloud2:after {
-	width: 80px; height: 90px;
-	top: -55px; left: auto; right: 15px;
-}
-
-//cloud3
-.cloud3 {
-	width: 80px; height: 20px;
-	background: #fff;
-	
-	border-radius: 60px;
-	
-	position: relative; 
-}
-
-.cloud3:before, .cloud3:after {
-	content: '';
-	position: absolute; 
-	background: #fff;
-	width: 50px; height: 30px;
-	position: absolute; top: -5px; left: 3px;
-	
+.cloud:before {
 	border-radius: 200px;
-
-	transform: rotate(20deg);
+	width: 15px;
+	height: 15px;
+	right: 20px;
+	top: -50px;
 }
 
-.cloud3:after {
-	width: 60px; height: 60px;
-	top: -37px; left: auto; right: 5px;
+.cloud1 {
+    transform: scale(0.75);
+}
+
+.cloud2 {
+    transform: scale(0.75) rotate(180deg);
+}
+
+.cloud3 {
+    transform: scale(1, 2);
+}
+
+.cloud4 {
+    transform: scale(0.5) rotate(220deg);
 }
 </style>
