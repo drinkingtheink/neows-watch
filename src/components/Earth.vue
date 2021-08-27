@@ -186,11 +186,12 @@ $earthDim: 88vw;
 	.st0{fill:#5191FF;}
 	.st1{fill:#8BC23F;}
     position: relative;
+    z-index: 0;
 }
 
 @keyframes breathe {
-    from { filter: blur(10px); opacity: 0.3; }
-    to { filter: blur(40px); opacity: 0.7; }
+    from { filter: blur(10px); opacity: 0.2; }
+    to { filter: blur(40px); opacity: 0.6; }
 }
 
 .earth-glow {
@@ -204,7 +205,7 @@ $earthDim: 88vw;
     background-color: $yellow;
     border-radius: 50%;
     filter: blur(20px);
-    animation: breathe 10s infinite;
+    animation: breathe 6s infinite;
     animation-fill-mode: both;
     animation-direction: alternate;
     opacity: 0.6;

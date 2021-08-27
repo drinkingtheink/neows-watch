@@ -3,10 +3,9 @@
         <Body 
             v-for="body, index in bodyCollection" 
             :key="body.neo_reference_id"
-            :style="{ 'right': `${getRandomInt(10, 90)}%`, 'top': `${getDistanceFromEarth(body.close_approach_data[0].miss_distance)}%`, 'animation-delay': `0.${index}s`}"
-            :getRandomInt="getRandomInt"
-            :getDistanceFromEarth="getDistanceFromEarth"
+            :style="{ 'right': `${getRandomInt(10, 90)}%`, 'top': `${getDistanceFromEarth(body.close_approach_data[0].miss_distance, body.is_potentially_hazardous_asteroid)}%`, 'animation-delay': `0.${index}s`}"
             :body="body"
+            :bodyIndex="index"
         >
         </Body>
     </div>
@@ -30,7 +29,7 @@ export default {
             max = Math.floor(max);
             return Math.floor(Math.random() * (max - min + 1)) + min;
         },
-        getDistanceFromEarth(distData) {
+        getDistanceFromEarth(distData, posesThreat) {
             let distance = Math.floor(distData.miles);
             let bodyMin;
             let bodyMax;
@@ -38,9 +37,9 @@ export default {
             let medFloor = 150000;
             let ceiling = 20000000;
 
-            if (distance < floor) {
-                bodyMin = 75;
-                bodyMax = 85;
+            if (distance < floor || posesThreat) {
+                bodyMin = 60;
+                bodyMax = 70;
             }
 
             else if (distance > floor && distance < medFloor) {

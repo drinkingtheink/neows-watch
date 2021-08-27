@@ -3,7 +3,7 @@
         <span class="label">{{ body.name }}</span>
         <span 
             class="disc"
-            :style="{ 'height': `${relativeSize}px`, 'width': `${relativeSize}px` }" />
+            :style="{ 'height': `${relativeSize}px`, 'width': `${relativeSize}px`, 'animation-delay': `0.${bodyIndex}0s` }" />
     </button>
 </template>
 
@@ -14,6 +14,7 @@ export default {
     name: 'Body',
     props: {
         body: Object,
+        bodyIndex: Number,
     },
     computed: {
         size() {
@@ -61,6 +62,16 @@ export default {
     animation-timing-function: ease-in;
 }
 
+@keyframes discSwell {
+    from {
+        transform: scale(1.05);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
 .heavenly-body {
     @include bodyAppear;
     position: absolute;
@@ -70,6 +81,7 @@ export default {
     transition: all .2s;
     border: none;
     background: transparent;
+    transition: all .4s;
 
     &:hover {
         cursor: pointer;
@@ -78,6 +90,23 @@ export default {
         .disc, .label {
             opacity: 1;
         }
+    }
+
+    .disc {
+        border-radius: 50%;
+        background-color: white;
+        display: inline-block;
+        margin: 0 auto;
+        animation: discSwell 1s infinite;
+        animation-direction: alternate;
+    }
+
+    .label {
+        background-color: rgba(black, 0.5);
+        color: $yellow;
+        padding: 4px;
+        font-size: .75rem;
+        margin-bottom: 5px;
     }
 
     .disc, .label {
@@ -100,20 +129,5 @@ export default {
             background-color: $lightred;
         }
     }
-}
-
-.disc {
-    border-radius: 50%;
-    background-color: white;
-    display: inline-block;
-    margin: 0 auto;
-}
-
-.label {
-    background-color: rgba(black, 0.5);
-    color: $yellow;
-    padding: 4px;
-    font-size: .75rem;
-    margin-bottom: 5px;
 }
 </style>
