@@ -2,7 +2,7 @@
   <div>
     <header>
         <h1 v-if="searching">Searching the Skies...</h1>
-        <h1 v-else>Watchful Eye | NEOWS Watch<span v-if="todaySearchIsActive">ing</span><span v-else>ed</span> <span class="count">{{ bodyCount }}</span> objects <span v-if="todaySearchIsActive">today</span><span v-else>on {{ dateToSearch }}</span></h1>
+        <h1 v-else>Watchful Eye | NEOWS Watches <span class="count">{{ bodyCount }}</span> objects <span v-if="todaySearchIsActive">today</span><span v-else>on {{ dateToSearch }}</span></h1>
     </header>
     
     <main>
@@ -15,7 +15,7 @@
     <Earth class="gaia" />
 
     <section class="date-editor">
-      <small>Add your own date in YYYY-MM-DD format</small>
+      <small>Explore Other Dates: </small>
       
       <label for="year">Year</label>
       <input 
@@ -112,7 +112,7 @@ export default {
       return this.userStartYear && this.userStartMonth && this.userStartDay;
     },
     todaySearchIsActive: function() {
-      return this.today === this.dateToSearch;
+      return this.searchToday === this.dateToSearch;
     },
   },
   watch: {
@@ -131,6 +131,10 @@ export default {
   },
   mounted() {
     this.getData();
+
+    this.userStartYear = this.currentYear;
+    this.userStartMonth = this.currentMonth;
+    this.userStartDay = this.currentDay;
 
     EventBus.$on('body-selected', (payload) => {
       this.modalContent = payload;
@@ -177,6 +181,7 @@ export default {
 @import '../styles/palette';
 
 .date-editor {
+  border-top: 2px solid $yellow;
   z-index: 4;
   background-color: rgba(black, 0.8);
   padding: 1rem;
@@ -194,6 +199,11 @@ export default {
 
   label {
     margin: 0 0.5rem 0 1rem;
+  }
+
+  small {
+    text-transform: uppercase;
+    margin-right: 1rem;
   }
 }
 
