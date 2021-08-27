@@ -9,7 +9,6 @@
           <span v-if="todaySearchIsActive" class="today-indicator">today</span>
           <span v-else class="on-date">on {{ dateToSearch }}</span>
         </h1>
-        <button v-if="!todaySearchIsActive" class="back-to-today" @click="setSearchToToday">Back to Today</button>
     </header>
     
     <main>
@@ -54,6 +53,7 @@
         max="32"
         maxlength="2" />
         
+        <span v-if="!todaySearchIsActive" class="back-to-today" @click="setSearchToToday">Back to Today</span>
     </section>
       
     <Modal
@@ -265,6 +265,18 @@ main {
 }
 
 .back-to-today {
-  transform: scale(0.5);
+  transform: scale(0.75);
+  transition: all .2s;
+  display: inline-block;
+  border-radius: 5px;
+  border: 2px solid $yellow;
+  text-transform: uppercase;
+  padding: 5px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $yellow;
+    color: $black;
+  }
 }
 </style>
