@@ -7,11 +7,9 @@
           <span class="count">{{ bodyCount }}</span> 
           objects 
           <span v-if="todaySearchIsActive" class="today-indicator">today</span>
-          <span v-else class="on-date">
-            on {{ dateToSearch }}
-            <button class="back-to-today" @click="setSearchToToday">Back to Today</button>
-          </span>
+          <span v-else class="on-date">on {{ dateToSearch }}</span>
         </h1>
+        <button v-if="!todaySearchIsActive" class="back-to-today" @click="setSearchToToday">Back to Today</button>
     </header>
     
     <main>
