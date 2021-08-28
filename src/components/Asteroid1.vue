@@ -1,5 +1,5 @@
 <template>
-    <div class="asteroid1" :style="{ 'width': `${size}px` }">
+    <div class="asteroid1" :style="{ 'width': `${size}px` }" :class="{ 'threat': threat }">
         <svg version="1.1" class="asteroid1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 340 284.2" style="enable-background:new 0 0 340 284.2;" xml:space="preserve">
             <g>
@@ -70,6 +70,7 @@ export default {
     name: 'Asteroid1',
     props: {
         relativeSize: Number,
+        threat: Boolean,
     },
     computed: {
         size: function() {
@@ -80,10 +81,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/palette';
+
 .asteroid1 {
     .st0{fill:#404040;}
     .st1{fill:#7F8080;}
     .st2{fill:#A2A2A1;}
     margin-top: 15%;
+
+    &.threat {
+        .st0{fill:$orange;}
+        .st1{fill:$darkorange;}
+        .st2{fill:$darkestorange;}
+    }
 }
 </style>

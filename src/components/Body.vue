@@ -4,7 +4,7 @@
         <span 
             class="disc"
             :style="{ 'height': `${relativeSize}px`, 'width': `${relativeSize}px`, 'animation-delay': `0.${bodyIndex}0s` }">
-            <Asteroid1 :relativeSize="relativeSize" />
+            <Asteroid1 :relativeSize="relativeSize" :threat="potentialThreat" />
         </span>
     </button>
 </template>
