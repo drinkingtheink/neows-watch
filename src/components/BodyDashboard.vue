@@ -38,28 +38,28 @@ export default {
             let ceiling = 20000000;
 
             if (distance < floor || posesThreat) {
-                bodyMin = 50;
-                bodyMax = 60;
+                bodyMin = 45;
+                bodyMax = 50;
             }
 
             else if (distance > floor && distance < medFloor) {
-                bodyMin = 65;
-                bodyMax = 75;
+                bodyMin = 55;
+                bodyMax = 65;
             }
 
             else if (distance > medFloor && distance < ceiling) {
-                bodyMin = 70;
-                bodyMax = 80;
+                bodyMin = 45;
+                bodyMax = 55;
             }
 
             else if (distance > ceiling) {
-                bodyMin = 15;
+                bodyMin = 10;
                 bodyMax = 25;
             }
 
             else {
-                bodyMin = 85;
-                bodyMax = 90;
+                bodyMin = 45;
+                bodyMax = 55;
             }
             
             return this.getRandomInt(bodyMin, bodyMax);
