@@ -22,13 +22,15 @@ export default {
         },
         relativeSize() {
             let newFig = parseInt(this.size.estimated_diameter_max, 10).toFixed(2) / 10;
+            const floor = 20;
+            const ceiling = 350;
 
-            if (newFig < 20) {
-                newFig = 20;
+            if (newFig < floor) {
+                newFig = floor;
             }
 
-            if (newFig > 400) {
-                newFig = 400;
+            if (newFig > ceiling) {
+                newFig = ceiling;
             }
             return newFig;
         },

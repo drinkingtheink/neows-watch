@@ -3,7 +3,7 @@
         <Body 
             v-for="body, index in bodyCollection" 
             :key="body.neo_reference_id"
-            :style="{ 'right': `${getRandomInt(10, 90)}%`, 'top': `${getDistanceFromEarth(body.close_approach_data[0].miss_distance, body.is_potentially_hazardous_asteroid)}%`, 'animation-delay': `0.${index}s`}"
+            :style="{ 'right': `${getRandomInt(10, 80)}%`, 'top': `${getDistanceFromEarth(body.close_approach_data[0].miss_distance, body.is_potentially_hazardous_asteroid)}%`, 'animation-delay': `0.${index}s`}"
             :body="body"
             :bodyIndex="index"
         >
