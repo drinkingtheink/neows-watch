@@ -7,7 +7,8 @@
           <span class="count">{{ bodyCount }}</span> 
           objects 
           <span v-if="todaySearchIsActive" class="today-indicator">today</span>
-          <span v-else class="on-date">on {{ dateToSearch }}</span>
+          <span v-if="!todaySearchIsActive">on </span>
+          <span v-if="!todaySearchIsActive" class="on-date">{{ dateToSearch }}</span>
         </h1>
     </header>
     
@@ -283,7 +284,11 @@ header {
     .count {
       color: white;
       font-family: inherit;
-  }
+    }
+
+    span {
+      font-family: inherit;
+    }
 }
 
 main {
