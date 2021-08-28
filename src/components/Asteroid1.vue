@@ -1,6 +1,6 @@
 <template>
     <div class="asteroid1" :style="{ 'width': `${size}px` }" :class="{ 'threat': threat }">
-        <svg version="1.1" class="asteroid1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        <svg version="1.1" class="asteroid" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
             viewBox="0 0 340 284.2" style="enable-background:new 0 0 340 284.2;" xml:space="preserve">
             <g>
                 <path class="st0" d="M73.9,29.3c3.8-3.1,7.7-6.2,12.3-7.8c4.7-1.6,9.7-1.4,14.6-1.2c20.2,0.7,40.5,1.4,60.7,2.2
@@ -87,12 +87,12 @@ export default {
     .st0{fill:$darkblue;}
     .st1{fill:$blue;}
     .st2{fill:$lightblue;}
-    margin-top: 17%;
+    margin-top: 20%;
 
     &.threat {
-        .st0{fill:$orange;}
+        .st0{fill:$darkestorange;}
         .st1{fill:$darkorange;}
-        .st2{fill:$darkestorange;}
+        .st2{fill:$orange;}
     }
 }
 </style>

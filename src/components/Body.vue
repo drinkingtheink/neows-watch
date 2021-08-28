@@ -4,23 +4,31 @@
         <span 
             class="disc"
             :style="{ 'height': `${relativeSize}px`, 'width': `${relativeSize}px`, 'animation-delay': `0.${bodyIndex}0s` }">
-            <Asteroid1 :relativeSize="relativeSize" :threat="potentialThreat" />
+            <Asteroid1 v-if="astToDisplay === 'Asteroid1'" :relativeSize="relativeSize" :threat="potentialThreat" />
+            <Asteroid2 v-if="astToDisplay === 'Asteroid2'" :relativeSize="relativeSize" :threat="potentialThreat" />
+            <Asteroid3 v-if="astToDisplay === 'Asteroid3'" :relativeSize="relativeSize" :threat="potentialThreat" />
         </span>
     </button>
 </template>
 
 <script>
 import { EventBus } from '../EventBus';
-import Asteroid1 from './Asteroid1';
 
 export default {
     name: 'Body',
     components: {
-        Asteroid1,
+        'Asteroid1': () => import('./Asteroid1'),
+        'Asteroid2': () => import('./Asteroid2'),
+        'Asteroid3': () => import('./Asteroid3'),
     },
     props: {
         body: Object,
         bodyIndex: Number,
+    },
+    data() {
+        return {
+            astToDisplay: null,
+        }
     },
     computed: {
         size() {
@@ -44,9 +52,18 @@ export default {
             return this.body.is_potentially_hazardous_asteroid;
         },
     },
+    mounted() {
+        let randomBody = this.getRandomAsteroid();
+        this.astToDisplay = randomBody;
+    },
     methods: {
         bodySelect(body) {
             EventBus.$emit('body-selected', body);
+        },
+        getRandomAsteroid() {
+            let bodies = ['Asteroid1', 'Asteroid2', 'Asteroid3'];
+            let randomBody = bodies[Math.floor(Math.random() * bodies.length)];
+            return randomBody;
         }
     }
 }
