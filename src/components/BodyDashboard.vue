@@ -38,18 +38,18 @@ export default {
             let ceiling = 20000000;
 
             if (distance < floor || posesThreat) {
-                bodyMin = 60;
-                bodyMax = 70;
+                bodyMin = 50;
+                bodyMax = 60;
             }
 
             else if (distance > floor && distance < medFloor) {
-                bodyMin = 55;
-                bodyMax = 70;
+                bodyMin = 65;
+                bodyMax = 75;
             }
 
             else if (distance > medFloor && distance < ceiling) {
-                bodyMin = 60;
-                bodyMax = 25;
+                bodyMin = 70;
+                bodyMax = 80;
             }
 
             else if (distance > ceiling) {
