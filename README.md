@@ -1,4 +1,11 @@
-# neows-watch
+# Watchful Eye - NeoWs Data Visualizer
+## Visualizing near-Earth objects using NASA APIs
+
+### Browse near-Earth objects by date using over one Century of NASA data
+![Watchful Eye Screenshot](https://i.ibb.co/QDtxGdd/Screen-Shot-2021-08-28-at-3-37-55-PM.png)
+
+#### Thanks to open data from NASA
+[Info on NASA APIs](https://api.nasa.gov/).
 
 ## Project setup
 ```

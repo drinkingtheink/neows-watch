@@ -4,7 +4,7 @@
             <div class="modal">
                 <header class="modal-header">
                     <div v-if="content">
-                        <h2 class="neo-name"><span>NEO:</span> {{ content.name }}</h2>
+                        <h2 class="neo-name">{{ content.name }}</h2>
                         <p class="neo-id"><span>ID: {{ content.neo_reference_id }}</span> <a class="more-info" :href="content.nasa_jpl_url" target="_blank">More Info</a></p>
                     </div>
                     <button
@@ -146,6 +146,7 @@
     flex-direction: column;
     min-width: 50rem;
     z-index: 100;
+    border-radius: 20px;
 
     h1, h2, h3, h5, h6 {
         margin-top: 0;
