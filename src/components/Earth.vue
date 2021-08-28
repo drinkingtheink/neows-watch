@@ -194,11 +194,13 @@ $earthDim: 88vw;
     to { filter: blur(40px); opacity: 0.6; }
 }
 
+$earthDist: -20rem;
+
 .earth-glow {
     position: absolute;
     margin: auto;
     left: 0; right: 0;
-    top: -15rem;
+    top: $earthDist;
     z-index: 1;
     height: $earthDim;
     width: $earthDim;
@@ -215,7 +217,7 @@ $earthDim: 88vw;
     position: absolute;
     margin: auto;
     left: 0; right: 0;
-    top: -15rem;
+    top: $earthDist;
     z-index: 2;
     height: $earthDim;
     width: 100vw;

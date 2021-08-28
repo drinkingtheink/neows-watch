@@ -9,13 +9,13 @@
           <span v-if="todaySearchIsActive" class="today-indicator">today</span>
           <span v-else class="on-date">on {{ dateToSearch }}</span>
         </h1>
-
-        <section class="threat-stage">
-          <p>{{ threatCount }} threat<span v-if="threatCount > 1 || threatCount < 1">s</span> detected</p>
-        </section>
     </header>
     
     <main>
+      <section class="threat-stage" :class="{ 'active-threats': threatCount > 0 }">
+        <p><strong>{{ threatCount }}</strong><small> threat<span v-if="threatCount > 1 || threatCount < 1">s</span> detected</small></p>
+      </section>
+
       <BodyDashboard 
         :bodyCollection="foundBodies" 
         :bodyCount="bodyCount"
@@ -136,6 +136,9 @@ export default {
 
       return threats.length;
     },
+    queryStrings: function() {
+      return window.location.search;
+    },
   },
   watch: {
     newDateReady: function () {
@@ -152,11 +155,13 @@ export default {
     },
   },
   mounted() {
-    this.getData();
-
-    this.userStartYear = this.currentYear;
-    this.userStartMonth = this.currentMonth;
-    this.userStartDay = this.currentDay;
+    if (this.queryStrings) {
+      this.handleQueryString(this.queryStrings);
+    } else {
+      this.userStartYear = this.currentYear;
+      this.userStartMonth = this.currentMonth;
+      this.userStartDay = this.currentDay;
+    }
 
     EventBus.$on('body-selected', (payload) => {
       this.modalContent = payload;
@@ -174,6 +179,25 @@ export default {
       this.userStartYear = this.currentYear;
       this.userStartMonth = this.currentMonth;
       this.userStartDay = this.currentDay;
+    },
+    handleQueryString(queryStrings) {
+      let urlParams = new URLSearchParams(queryStrings);
+      let yyyy = urlParams.get('yyyy');
+      let mm = urlParams.get('mm');
+      let dd = urlParams.get('dd');
+      
+      this.userStartYear = yyyy;
+      this.userStartMonth = mm;
+      this.userStartDay = dd;
+    },
+    updateQueryStrings() {
+      let urlParams = new URLSearchParams(this.queryStrings);
+
+      urlParams.set('yyyy', this.userStartYear);
+      urlParams.set('mm', this.userStartMonth);
+      urlParams.set('dd', this.userStartDay);
+
+      history.pushState(null, null, "?"+urlParams.toString());
     },
     getData() {
       this.searching = true;
@@ -194,6 +218,7 @@ export default {
           });
           this.foundBodies = objectCollection;
           this.searching = false;
+          this.updateQueryStrings();
         })
         .catch(error => {
           console.error('There has been a problem with your fetch operation:', error);
@@ -293,6 +318,32 @@ main {
     cursor: pointer;
     background-color: $yellow;
     color: $black;
+  }
+}
+
+.threat-stage {
+    display: flex;
+    justify-content: center;
+    transition: all .2s;
+
+  p {
+    max-width: 40rem;
+    border-radius: 40px;
+    background-color: rgba(black, 0.6);
+    padding: 0.5rem 1rem;
+    color: $yellow;
+    transition: all .2s;
+  }
+
+  small {
+    text-transform: uppercase;
+  }
+
+  &.active-threats {
+    p {
+      background: rgba($red, 0.7);
+      color: white;
+    }
   }
 }
 </style>
