@@ -84,9 +84,9 @@ export default {
 @import '../styles/palette';
 
 .asteroid1 {
-    .st0{fill:#404040;}
-    .st1{fill:#7F8080;}
-    .st2{fill:#A2A2A1;}
+    .st0{fill:$darkblue;}
+    .st1{fill:$blue;}
+    .st2{fill:$lightblue;}
     margin-top: 17%;
 
     &.threat {

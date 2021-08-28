@@ -87,12 +87,12 @@ export default {
 @keyframes discThreatSwell {
     from {
         transform: scale(1.05);
-        background-color: rgba($lightred, 0.5);
+        background-color: rgba($lightred, 0.4);
     }
 
     to {
         transform: scale(1);
-        background-color: rgba($lightred, 0.8);
+        background-color: rgba($lightred, 0.7);
     }
 }
 
