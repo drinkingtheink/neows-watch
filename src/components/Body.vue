@@ -77,12 +77,10 @@ export default {
 @keyframes discSwell {
     from {
         transform: scale(1.05);
-        background-color: rgba(white, 0.5);
     }
 
     to {
         transform: scale(1);
-        background-color: rgba(white, 0.8);
     }
 }
 
@@ -120,7 +118,7 @@ export default {
 
     .disc {
         border-radius: 50%;
-        background-color: white;
+        background: radial-gradient(circle, rgba(255,255,255,0) 38%, rgba($yellow,1) 100%);
         display: inline-block;
         margin: 0 auto;
         animation: discSwell 1s infinite;
@@ -155,7 +153,7 @@ export default {
         }
 
         .disc {
-            background-color: $lightred;
+            background: radial-gradient(circle, rgba(255,255,255,0) 55%, rgba($lightred,1) 100%);
             animation: discThreatSwell 1s infinite;
             animation-direction: alternate;
         }
