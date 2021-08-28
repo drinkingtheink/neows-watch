@@ -3,15 +3,21 @@
         <span class="label">{{ body.name }}</span>
         <span 
             class="disc"
-            :style="{ 'height': `${relativeSize}px`, 'width': `${relativeSize}px`, 'animation-delay': `0.${bodyIndex}0s` }" />
+            :style="{ 'height': `${relativeSize}px`, 'width': `${relativeSize}px`, 'animation-delay': `0.${bodyIndex}0s` }">
+            <Asteroid1 :relativeSize="relativeSize" />
+        </span>
     </button>
 </template>
 
 <script>
 import { EventBus } from '../EventBus';
+import Asteroid1 from './Asteroid1';
 
 export default {
     name: 'Body',
+    components: {
+        Asteroid1,
+    },
     props: {
         body: Object,
         bodyIndex: Number,
@@ -107,6 +113,9 @@ export default {
         margin: 0 auto;
         animation: discSwell 1s infinite;
         animation-direction: alternate;
+        display: flex;
+        align-content: center;
+        justify-content: center;
     }
 
     .label {
