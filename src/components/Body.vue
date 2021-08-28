@@ -77,12 +77,24 @@ export default {
 @keyframes discSwell {
     from {
         transform: scale(1.05);
-        opacity: 0.6;
+        background-color: rgba(white, 0.5);
     }
 
     to {
         transform: scale(1);
-        opacity: 0.8;
+        background-color: rgba(white, 0.8);
+    }
+}
+
+@keyframes discThreatSwell {
+    from {
+        transform: scale(1.05);
+        background-color: rgba($lightred, 0.5);
+    }
+
+    to {
+        transform: scale(1);
+        background-color: rgba($lightred, 0.8);
     }
 }
 
@@ -144,6 +156,8 @@ export default {
 
         .disc {
             background-color: $lightred;
+            animation: discThreatSwell 1s infinite;
+            animation-direction: alternate;
         }
     }
 }
