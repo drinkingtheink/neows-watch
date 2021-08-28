@@ -71,10 +71,12 @@ export default {
 @keyframes discSwell {
     from {
         transform: scale(1.05);
+        opacity: 0.6;
     }
 
     to {
         transform: scale(1);
+        opacity: 0.8;
     }
 }
 
