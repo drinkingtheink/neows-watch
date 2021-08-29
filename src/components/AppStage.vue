@@ -371,6 +371,7 @@ $blackOpac: 0.7;
     border-radius: 5px;
     outline: none;
     border: none;
+    max-width: 5rem;
   }
 }
 
@@ -490,6 +491,8 @@ main {
 }
 
 .about {
+  padding-left: 1rem;
+
   ul {
     padding: 0;
     margin: 0;
