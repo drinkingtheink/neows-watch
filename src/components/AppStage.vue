@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div id="app-stage">
     <header>
         <h1 v-if="searching" class="searching">Searching the Skies...</h1>
         <h1 v-else>
           <WELogo />
-          NeoWs Watches 
+          NeoWs watches 
           <span class="count">
             <ICountUp
               :delay="delay"
@@ -20,7 +20,7 @@
     </header>
     
     <main>
-      <section class="threat-stage" :class="{ 'active-threats': threatCount > 0 }">
+      <section class="threat-stage" :class="{ 'active-threats': threatCount > 0, 'inviz': searching }">
         <p><strong>{{ threatCount }}</strong><small> threat<span v-if="threatCount > 1 || threatCount < 1">s</span> detected</small></p>
       </section>
 
@@ -74,6 +74,11 @@
       :content="modalContent"
       class="modal-wrapper"
     />
+
+    <SpaceBG 
+      class="space-bg-stage" 
+      :style="{ 'top': `${spaceBGTop}px`, 'left': `${spaceBGLeft}px` }"
+    />
   </div>
 </template>
 
@@ -82,6 +87,7 @@ import WELogo from './WELogo.vue'
 import BodyDashboard from './BodyDashboard.vue';
 import Modal from './Modal.vue';
 import Earth from './Earth.vue'
+import SpaceBG from './SpaceBG.vue'
 import { EventBus } from '../EventBus';
 import ICountUp from 'vue-countup-v2';
 
@@ -92,6 +98,7 @@ export default {
     BodyDashboard,
     Modal,
     Earth,
+    SpaceBG,
     ICountUp,
   },
   data() {
@@ -115,38 +122,40 @@ export default {
         decimal: '.',
         prefix: '',
         suffix: ''
-      }
+      },
+      spaceBGTop: 0,
+      spaceBGLeft: 0,
     }
   },
   computed: {
-    today: function() {
+    today() {
       return new Date();
     },
-    currentDay: function() {
+    currentDay() {
       return String(this.today.getDate()).padStart(2, '0');
     },
-    currentMonth: function() {
+    currentMonth() {
       return String(this.today.getMonth() + 1).padStart(2, '0');
     },
-    currentYear: function() {
+    currentYear() {
       return this.today.getFullYear();
     },
-    searchToday: function() {
+    searchToday() {
       return `${this.currentYear}-${this.currentMonth}-${this.currentDay}`;
     },
-    dateToSearch: function() {
+    dateToSearch() {
       return this.newDateReady ? `${this.userStartYear}-${this.userStartMonth}-${this.userStartDay}` : this.searchToday;
     },
-    dataUrl: function() {
+    dataUrl() {
       return `${this.apiUrl}start_date=${this.dateToSearch}&end_date=${this.dateToSearch}&api_key=${this.apiKey}`
     },
-    newDateReady: function() {
+    newDateReady() {
       return this.userStartYear && this.userStartMonth && this.userStartDay;
     },
-    todaySearchIsActive: function() {
+    todaySearchIsActive() {
       return this.searchToday === this.dateToSearch;
     },
-    threatCount: function() {
+    threatCount() {
       let threats = [];
 
       this.foundBodies.forEach((body) => {
@@ -157,21 +166,21 @@ export default {
 
       return threats.length;
     },
-    queryStrings: function() {
+    queryStrings() {
       return window.location.search;
     },
   },
   watch: {
-    newDateReady: function () {
+    newDateReady () {
       this.getData();
     },
-    userStartYear: function () {
+    userStartYear () {
       if (this.newDateReady) this.getData();
     },
-    userStartMonth: function () {
+    userStartMonth () {
       if (this.newDateReady) this.getData();
     },
-    userStartDay: function () {
+    userStartDay () {
       if (this.newDateReady) this.getData();
     },
   },
@@ -211,6 +220,15 @@ export default {
       this.userStartMonth = mm;
       this.userStartDay = dd;
     },
+    getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    },
+    adjustSpaceBG() {
+      this.spaceBGTop = this.getRandomInt(-5, -650);
+      this.spaceBGLeft = this.getRandomInt(-8, -700);
+    },
     updateQueryStrings() {
       let urlParams = new URLSearchParams(this.queryStrings);
 
@@ -221,6 +239,7 @@ export default {
       history.pushState(null, null, "?"+urlParams.toString());
     },
     getData() {
+      this.adjustSpaceBG();
       this.searching = true;
       this.searchError = false;
       
@@ -381,6 +400,23 @@ main {
       background: rgba($red, 0.7);
       color: white;
     }
+  }
+
+  &.inviz {
+    opacity: 0;
+  }
+}
+
+.space-bg-stage {
+  position: absolute;
+  width: 150vw;
+  height: 150vh;
+  z-index: -1;
+  transition: all 1s;
+
+  .space-bg {
+    height: 100%;
+    width: 100%;
   }
 }
 </style>
