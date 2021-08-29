@@ -354,16 +354,16 @@ main {
 }
 
 .threat-stage {
-    display: flex;
-    justify-content: center;
-    transition: all .2s;
+  display: flex;
+  justify-content: center;
+  transition: all .2s;
 
   p {
     max-width: 40rem;
     border-radius: 40px;
-    background-color: rgba(black, 0.6);
+    background-color: rgba($lightgreen, 0.8);
     padding: 0.5rem 1rem;
-    color: $lightgreen;
+    color: $darkgreen;
     transition: all .2s;
   }
 
