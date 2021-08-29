@@ -22,7 +22,7 @@ export default {
 @import './styles/typography';
 
 body {
-  background-color: $black;
+  background-color: $darkerpurple;
   margin: 0;
   padding: 0;
 

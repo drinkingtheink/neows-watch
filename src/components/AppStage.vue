@@ -62,7 +62,7 @@
         id="day" 
         name="day"
         min="01" 
-        max="32"
+        max="31"
         maxlength="2" />
         
         <span v-if="!todaySearchIsActive" class="back-to-today" @click="setSearchToToday">Back to Today</span>
@@ -384,6 +384,7 @@ main {
     padding: 0.5rem 1rem;
     color: $darkgreen;
     transition: all .2s;
+    box-shadow: 0px 5px 5px 0 rgba(black, 0.5);
   }
 
   small {
@@ -413,6 +414,7 @@ main {
   height: 150vh;
   z-index: -1;
   transition: all 1s;
+  opacity: 0.5;
 
   .space-bg {
     height: 100%;
