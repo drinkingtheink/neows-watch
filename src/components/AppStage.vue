@@ -1,7 +1,10 @@
 <template>
   <div id="app-stage" @keydown.esc="handleEsc">
     <header>
-        <h1 v-if="searching" class="searching">Searching the Skies...</h1>
+        <h1 v-if="searching" class="searching">
+          <WELogo />
+          Searching the Skies...
+        </h1>
         <h1 v-else>
           <WELogo />
           NeoWs watches 
@@ -49,6 +52,7 @@
       <label for="month">Month</label>
       <input 
         v-model.number="userStartMonth" 
+        ref="userStartMonth"
         type="number"
         id="month" 
         name="month"
@@ -58,7 +62,8 @@
 
       <label for="day">Day</label>
       <input 
-        v-model.number="userStartDay" 
+        v-model.number="userStartDay"
+        ref="userStartDay"
         type="number"
         id="day" 
         name="day"
@@ -361,7 +366,7 @@ header {
 }
 
 .searching {
-  padding: 1rem 0;
+
 }
 
 main {
