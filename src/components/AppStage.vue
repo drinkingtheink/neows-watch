@@ -274,10 +274,12 @@ export default {
 @import '../styles/palette';
 @import '../styles/typography';
 
+$blackOpac: 0.7;
+
 .date-editor {
   border-top: 2px solid $yellow;
   z-index: 4;
-  background-color: rgba(black, 0.8);
+  background-color: rgba(black, $blackOpac);
   padding: 1rem;
   position: absolute;
   left: 0; right: 0; bottom: 0;
@@ -315,7 +317,7 @@ header {
     display: flex;
     justify-content: center;
     align-content: center;
-    background-color: rgba(black, 0.4);
+    background-color: rgba(black, $blackOpac);
     border-bottom: 2px solid $yellow;
     height: 4rem;
 
