@@ -2,7 +2,7 @@
   <div id="app-stage" @keydown.esc="handleEsc">
     <header>
         <h1 v-if="searching" class="searching">
-          <WELogo />
+          <WELogo searching="true" />
           Searching the Skies...
         </h1>
         <h1 v-else>

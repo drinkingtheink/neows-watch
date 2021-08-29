@@ -1,5 +1,5 @@
 <template>
-    <div class="we-logo">
+    <div class="we-logo" :class="{ 'searching': searching }">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         viewBox="0 0 820.8 96.8" style="enable-background:new 0 0 820.8 96.8;" xml:space="preserve">
             <g>
@@ -20,23 +20,23 @@
                 <path class="stw" d="M652.4,50.6l-10.6-18.3h5.6l7.4,12.9l7.4-12.9h5.6l-10.5,18.3v13.9h-4.9L652.4,50.6L652.4,50.6z"/>
                 <path class="stw" d="M714.8,36.9h-12.9v7.7h12.5v4.6h-12.5V60h12.9v4.6H697V32.3h17.8V36.9z"/>
             </g>
-            <circle class="st0" cx="158.9" cy="48.7" r="2.9"/>
-            <circle class="st0" cx="213.6" cy="48.7" r="2.9"/>
-            <circle class="st0" cx="259.5" cy="48.7" r="2.9"/>
-            <circle class="st0" cx="313.2" cy="48.7" r="2.9"/>
-            <circle class="st0" cx="371.1" cy="48.7" r="2.9"/>
-            <circle class="st0" cx="419.2" cy="48.7" r="2.9"/>
-            <circle class="st0" cx="473.7" cy="48.7" r="2.9"/>
-            <circle class="st0" cx="633.2" cy="48.7" r="2.9"/>
-            <circle class="st0" cx="680.2" cy="48.7" r="2.9"/>
-            <circle class="st0" cx="91.1" cy="48.7" r="2.9"/>
-            <circle class="st1" cx="68.9" cy="48.7" r="2.9"/>
-            <circle class="st2" cx="46.7" cy="48.7" r="2.9"/>
-            <circle class="st3" cx="24.6" cy="48.7" r="2.9"/>
-            <circle class="st0" cx="730" cy="48.4" r="2.9"/>
-            <circle class="st1" cx="752.1" cy="48.4" r="2.9"/>
-            <circle class="st2" cx="774.3" cy="48.4" r="2.9"/>
-            <circle class="st3" cx="796.5" cy="48.4" r="2.9"/>
+            <circle style="animation-delay: 0.1s" class="st0" cx="158.9" cy="48.7" r="2.9"/>
+            <circle style="animation-delay: 0.2s" class="st0" cx="213.6" cy="48.7" r="2.9"/>
+            <circle style="animation-delay: 0.3s" class="st0" cx="259.5" cy="48.7" r="2.9"/>
+            <circle style="animation-delay: 0.4s" class="st0" cx="313.2" cy="48.7" r="2.9"/>
+            <circle style="animation-delay: 0.5s" class="st0" cx="371.1" cy="48.7" r="2.9"/>
+            <circle style="animation-delay: 0.6s" class="st0" cx="419.2" cy="48.7" r="2.9"/>
+            <circle style="animation-delay: 0.7s" class="st0" cx="473.7" cy="48.7" r="2.9"/>
+            <circle style="animation-delay: 0.8s" class="st0" cx="633.2" cy="48.7" r="2.9"/>
+            <circle style="animation-delay: 0.9s" class="st0" cx="680.2" cy="48.7" r="2.9"/>
+            <circle style="animation-delay: 0.10s" class="st0" cx="91.1" cy="48.7" r="2.9"/>
+            <circle style="animation-delay: 0.11s" class="st1" cx="68.9" cy="48.7" r="2.9"/>
+            <circle style="animation-delay: 0.12s" class="st2" cx="46.7" cy="48.7" r="2.9"/>
+            <circle style="animation-delay: 0.13s" class="st3" cx="24.6" cy="48.7" r="2.9"/>
+            <circle style="animation-delay: 0.14s" class="st0" cx="730" cy="48.4" r="2.9"/>
+            <circle style="animation-delay: 0.15s" class="st1" cx="752.1" cy="48.4" r="2.9"/>
+            <circle style="animation-delay: 0.16s" class="st2" cx="774.3" cy="48.4" r="2.9"/>
+            <circle style="animation-delay: 0.17s" class="st3" cx="796.5" cy="48.4" r="2.9"/>
             <g id="YLbqva.tif">
                 <g>
                     <path class="st0" d="M549.4,62.7c-0.4,0-1.1,0-1.7-0.2c-0.7-0.1-1.3-0.3-2-0.5c-0.4-0.1-0.9-0.3-1.3-0.4c-0.5-0.2-1.1-0.5-1.6-0.8
@@ -62,15 +62,33 @@
 <script>
 export default {
     name: 'WELogo',
+    props: {
+        searching: Boolean,
+    },
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../styles/palette';
 
+@keyframes blink {
+    from {
+        opacity: 0.2;
+    }
+    to {
+        opacity: 0.8;
+    }
+}
+
 .we-logo {
     width: 30rem;
     margin-bottom: -6px;
+
+    &.searching {
+        circle {
+            animation: blink 1s infinite;
+        }
+    }
 }
 .st0{fill:$yellow;}
 .st1{opacity:0.75;fill:$yellow;}
