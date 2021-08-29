@@ -70,6 +70,7 @@ export default {
 
 .we-logo {
     width: 30rem;
+    margin-bottom: -6px;
 }
 .st0{fill:$yellow;}
 .st1{opacity:0.75;fill:$yellow;}
