@@ -19,10 +19,7 @@ export default {
 
 <style lang="scss">
 @import './styles/palette';
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Rubik:wght@300;400;500;600;700&display=swap');
-
-$bodyFont: 'Montserrat', sans-serif;
-$headerFont: 'Rubik', sans-serif;
+@import './styles/typography';
 
 body {
   background-color: $black;

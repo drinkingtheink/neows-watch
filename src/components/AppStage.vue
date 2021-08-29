@@ -1,9 +1,10 @@
 <template>
   <div>
     <header>
-        <h1 v-if="searching">Searching the Skies...</h1>
+        <h1 v-if="searching" class="searching">Searching the Skies...</h1>
         <h1 v-else>
-          WATCHFUL EYE | NeoWs Watches 
+          <WELogo />
+          NeoWs Watches 
           <span class="count">
             <ICountUp
               :delay="delay"
@@ -77,6 +78,7 @@
 </template>
 
 <script>
+import WELogo from './WELogo.vue'
 import BodyDashboard from './BodyDashboard.vue';
 import Modal from './Modal.vue';
 import Earth from './Earth.vue'
@@ -86,6 +88,7 @@ import ICountUp from 'vue-countup-v2';
 export default {
   name: 'AppStage',
   components: {
+    WELogo,
     BodyDashboard,
     Modal,
     Earth,
@@ -250,6 +253,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/palette';
+@import '../styles/typography';
 
 .date-editor {
   border-top: 2px solid $yellow;
@@ -293,6 +297,8 @@ header {
     justify-content: center;
     align-content: center;
     background-color: rgba(black, 0.4);
+    border-bottom: 2px solid $yellow;
+    height: 4rem;
 
     h1 {
         font-size: 110%;
@@ -306,6 +312,10 @@ header {
     span {
       font-family: inherit;
     }
+}
+
+.searching {
+  padding: 1rem 0;
 }
 
 main {
@@ -353,12 +363,17 @@ main {
     border-radius: 40px;
     background-color: rgba(black, 0.6);
     padding: 0.5rem 1rem;
-    color: $yellow;
+    color: $lightgreen;
     transition: all .2s;
   }
 
   small {
     text-transform: uppercase;
+  }
+
+  strong {
+    font-family: $headerFont;
+    margin-right: 0.5rem;
   }
 
   &.active-threats {
