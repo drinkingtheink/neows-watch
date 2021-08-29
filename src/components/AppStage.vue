@@ -187,6 +187,10 @@ export default {
         let concatYr = this.userStartYear.toString().substring(0,4);
         this.userStartYear = parseInt(concatYr);
       }
+
+      if (this.userStartYear === '') {
+        this.userStartYear = this.currentYear;
+      }
     },
     userStartMonth () {
       if (this.newDateReady) this.getData();
@@ -195,6 +199,10 @@ export default {
         let concatMm = this.userStartMonth.toString().substring(0,2);
         this.userStartMonth = parseInt(concatMm);
       }
+
+      if (this.userStartMonth === '') {
+        this.userStartMonth = 1;
+      }
     },
     userStartDay () {
       if (this.newDateReady) this.getData();
@@ -202,6 +210,10 @@ export default {
       if (this.userStartDay.toString().length > 2) {
         let concatDd = this.userStartDay.toString().substring(0,2);
         this.userStartDay = parseInt(concatDd);
+      }
+
+      if (this.userStartDay === '') {
+        this.userStartDay = 1;
       }
     },
   },
