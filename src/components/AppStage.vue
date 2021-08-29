@@ -340,10 +340,14 @@ header {
     align-content: center;
     background-color: rgba(black, $blackOpac);
     border-bottom: 2px solid $yellow;
-    height: 4rem;
+    height: 6rem;
 
     h1 {
         font-size: 110%;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+        text-align: center;
     }
 
     .count {
