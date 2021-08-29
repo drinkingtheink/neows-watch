@@ -7,10 +7,12 @@
 #### Learn About Each Object
 ![More Object Info Screenshot](https://i.ibb.co/g4gGqqz/Screen-Shot-2021-08-29-at-12-10-26-AM.png)
 
-Explore a data set that goes back to 1900 and forward to 2300+.
+Explore a data set that goes back to 1900 and forward to 2200+.
 
 #### Thanks to open data from NASA
 [Info on NASA APIs](https://api.nasa.gov/).
+
+NeoWs (Near Earth Object Web Service) is a RESTful web service for near earth Asteroid information. With NeoWs a user can: search for Asteroids based on their closest approach date to Earth, lookup a specific Asteroid with its NASA JPL small body id, as well as browse the overall data-set.
 
 ## Project setup
 ```

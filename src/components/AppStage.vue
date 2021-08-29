@@ -71,7 +71,14 @@
         max="31"
         maxlength="2" />
         
-        <span v-if="!todaySearchIsActive" class="back-to-today" @click="setSearchToToday">Back to Today</span>
+      <span v-if="!todaySearchIsActive" class="back-to-today" @click="setSearchToToday">Back to Today</span>
+        
+      <section class="about">
+        <ul>
+          <li><a href="https://github.com/drinkingtheink/neows-watch" target="_blank" alt="About this Project">About this Project</a></li>
+          <li><a href="http://drinkingtheink.com/" target="_blank" alt="About the Author">About the Author</a></li>
+        </ul>
+      </section>
     </section>
       
     <Modal
@@ -466,6 +473,28 @@ main {
   .space-bg {
     height: 100%;
     width: 100%;
+  }
+}
+
+.about {
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style: none;
+      font-size: small;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: $yellow;
+    transition: all .5s;
+
+    &:hover {
+      color: $lightgreen;
+    }
   }
 }
 </style>
