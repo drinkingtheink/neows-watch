@@ -12,7 +12,7 @@
               :options="options"
             />
           </span> 
-          objects 
+          object<span v-if="bodyCount > 1 || bodyCount < 1">s </span> 
           <span v-if="todaySearchIsActive" class="today-indicator">today</span>
           <span v-if="!todaySearchIsActive">on </span>
           <span v-if="!todaySearchIsActive" class="on-date">{{ dateToSearch }}</span>
@@ -37,13 +37,14 @@
       
       <label for="year">Year</label>
       <input 
-        v-model.number="userStartYear" 
+        v-model.number="userStartYear"
+        ref="userStartYear"
         type="number"
         id="year" 
         name="year"
         min="1900" 
         max="2600"
-        maxlength="4" />
+      />
 
       <label for="month">Month</label>
       <input 
