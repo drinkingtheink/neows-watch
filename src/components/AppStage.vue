@@ -177,12 +177,27 @@ export default {
     },
     userStartYear () {
       if (this.newDateReady) this.getData();
+
+      if (this.userStartYear.toString().length > 4) {
+        let concatYr = this.userStartYear.toString().substring(0,4);
+        this.userStartYear = parseInt(concatYr);
+      }
     },
     userStartMonth () {
       if (this.newDateReady) this.getData();
+
+      if (this.userStartMonth.toString().length > 2) {
+        let concatMm = this.userStartMonth.toString().substring(0,2);
+        this.userStartMonth = parseInt(concatMm);
+      }
     },
     userStartDay () {
       if (this.newDateReady) this.getData();
+
+      if (this.userStartDay.toString().length > 2) {
+        let concatDd = this.userStartDay.toString().substring(0,2);
+        this.userStartDay = parseInt(concatDd);
+      }
     },
   },
   mounted() {
