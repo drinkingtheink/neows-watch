@@ -3,8 +3,14 @@
     <header>
         <h1 v-if="searching">Searching the Skies...</h1>
         <h1 v-else>
-          WATCHFUL EYE | NEOWS Watches 
-          <span class="count">{{ bodyCount }}</span> 
+          WATCHFUL EYE | NeoWs Watches 
+          <span class="count">
+            <ICountUp
+              :delay="delay"
+              :endVal="bodyCount"
+              :options="options"
+            />
+          </span> 
           objects 
           <span v-if="todaySearchIsActive" class="today-indicator">today</span>
           <span v-if="!todaySearchIsActive">on </span>
@@ -75,6 +81,7 @@ import BodyDashboard from './BodyDashboard.vue';
 import Modal from './Modal.vue';
 import Earth from './Earth.vue'
 import { EventBus } from '../EventBus';
+import ICountUp from 'vue-countup-v2';
 
 export default {
   name: 'AppStage',
@@ -82,6 +89,7 @@ export default {
     BodyDashboard,
     Modal,
     Earth,
+    ICountUp,
   },
   data() {
     return {
@@ -96,6 +104,15 @@ export default {
       userStartYear: null,
       userStartMonth: null,
       userStartDay: null,
+      delay: 1000,
+      options: {
+        useEasing: true,
+        useGrouping: true,
+        separator: ',',
+        decimal: '.',
+        prefix: '',
+        suffix: ''
+      }
     }
   },
   computed: {

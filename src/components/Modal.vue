@@ -96,31 +96,31 @@
 </template>
 
 <script>
-  export default {
-    name: 'Modal',
-    props: {
-        content: Object,
+export default {
+name: 'Modal',
+props: {
+    content: Object,
+},
+computed: {
+    approachData: function() {
+        return this.content.close_approach_data[0];
     },
-    computed: {
-        approachData: function() {
-            return this.content.close_approach_data[0];
-        },
-        speed: function() {
-            return this.approachData.relative_velocity;
-        },
-        missDistance: function() {
-            return this.approachData.miss_distance;
-        },
+    speed: function() {
+        return this.approachData.relative_velocity;
     },
-    methods: {
-      close() {
-        this.$emit('close');
-      },
-      formatNumber(num) {
-          return parseInt(num, 10).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-      },
+    missDistance: function() {
+        return this.approachData.miss_distance;
     },
-  };
+},
+methods: {
+    close() {
+    this.$emit('close');
+    },
+    formatNumber(num) {
+        return parseInt(num, 10).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    },
+},
+};
 </script>
 
 <style lang="scss" scoped>
