@@ -1,5 +1,5 @@
 <template>
-  <div id="app-stage">
+  <div id="app-stage" @keydown.esc="handleEsc">
     <header>
         <h1 v-if="searching" class="searching">Searching the Skies...</h1>
         <h1 v-else>
@@ -215,6 +215,11 @@ export default {
     });
   },
   methods: {
+    handleEsc() {
+      if (this.modalIsVisible) {
+        this.modalIsVisible = false;
+      }
+    },
     showModal() {
       this.modalIsVisible = true;
     },
