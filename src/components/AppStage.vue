@@ -17,7 +17,7 @@
           </span> 
           object<span v-if="bodyCount > 1 || bodyCount < 1">s </span> 
           <span v-if="todaySearchIsActive" class="today-indicator">today</span>
-          <span v-if="!todaySearchIsActive">on </span>
+          <span v-if="!todaySearchIsActive"> on </span>
           <span v-if="!todaySearchIsActive" class="on-date">{{ dateToSearch }}</span>
         </h1>
     </header>
@@ -32,6 +32,8 @@
         :bodyCount="bodyCount"
         class="body-dashboard-wrapper"
       />
+
+      <NoBodiesFound v-if="hasSearched && bodyCount < 1" />
     </main>
     <Earth />
 
@@ -96,11 +98,12 @@
 </template>
 
 <script>
-import WELogo from './WELogo.vue'
+import WELogo from './WELogo.vue';
 import BodyDashboard from './BodyDashboard.vue';
+import NoBodiesFound from './NoBodiesFound.vue';
 import Modal from './Modal.vue';
-import Earth from './Earth.vue'
-import SpaceBG from './SpaceBG.vue'
+import Earth from './Earth.vue';
+import SpaceBG from './SpaceBG.vue';
 import { EventBus } from '../EventBus';
 import ICountUp from 'vue-countup-v2';
 
@@ -109,6 +112,7 @@ export default {
   components: {
     WELogo,
     BodyDashboard,
+    NoBodiesFound,
     Modal,
     Earth,
     SpaceBG,
@@ -120,6 +124,7 @@ export default {
       apiKey: 'Z1Y1LoyLfSDcQJI51fl8E1tYsrZQgnvU09C5pV36',
       searching: false,
       searchError: false,
+      hasSearched: false,
       bodyCount: 0,
       foundBodies: [],
       modalIsVisible: false,
@@ -228,14 +233,20 @@ export default {
     if (this.queryStrings) {
       this.handleQueryString(this.queryStrings);
     } else {
-      this.userStartYear = this.currentYear;
-      this.userStartMonth = this.currentMonth;
-      this.userStartDay = this.currentDay;
+      this.setSearchToToday();
     }
 
     EventBus.$on('body-selected', (payload) => {
       this.modalContent = payload;
       this.showModal();
+    });
+
+    EventBus.$on('search-today', () => {
+      this.setSearchToToday();
+    });
+
+    EventBus.$on('to-year-input', () => {
+      this.$refs.userStartYear.focus();
     });
 
     this.$refs.userStartYear.focus();
@@ -289,6 +300,7 @@ export default {
       this.adjustSpaceBG();
       this.searching = true;
       this.searchError = false;
+      this.hasSearched = false;
       
       fetch(this.dataUrl)
         .then(response => {
@@ -305,6 +317,7 @@ export default {
           });
           this.foundBodies = objectCollection;
           this.searching = false;
+          this.hasSearched = true;
           this.updateQueryStrings();
           this.$refs.userStartYear.focus();
         })

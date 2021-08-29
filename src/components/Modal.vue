@@ -245,16 +245,6 @@ a.more-info {
     background: transparent;
 }
 
-.modal-fade-enter,
-.modal-fade-leave-to {
-    opacity: 0;
-}
-
-.modal-fade-enter-active,
-.modal-fade-leave-active {
-    transition: opacity .5s ease;
-}
-
 small {
     font-size: 50%;
     font-weight: bold;
