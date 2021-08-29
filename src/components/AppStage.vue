@@ -218,6 +218,8 @@ export default {
       this.modalContent = payload;
       this.showModal();
     });
+
+    this.$refs.userStartYear.focus();
   },
   methods: {
     handleEsc() {
