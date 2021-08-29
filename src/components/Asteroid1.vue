@@ -87,7 +87,7 @@ export default {
     .st0{fill:$darkblue;}
     .st1{fill:$blue;}
     .st2{fill:$lightblue;}
-    margin-top: 20%;
+    margin-top: 22%;
 
     &.threat {
         .st0{fill:$darkestorange;}

@@ -1,6 +1,8 @@
 <template>
     <button class="heavenly-body" :class="{ 'potential-threat': potentialThreat }" @click="bodySelect(body)">
-        <span class="label">{{ body.name }}</span>
+        <div class="label">
+            <p>{{ body.name }}</p>
+        </div>
         <span 
             class="disc"
             :style="{ 'height': `${relativeSize}px`, 'width': `${relativeSize}px`, 'animation-delay': `0.${bodyIndex}0s` }">
@@ -150,7 +152,12 @@ export default {
         color: $yellow;
         padding: 4px;
         font-size: .75rem;
-        margin-bottom: 5px;
+        margin: 0 0 5px 0;
+
+        p {
+            margin: 0;
+            padding: 0;
+        }
     }
 
     .disc, .label {
