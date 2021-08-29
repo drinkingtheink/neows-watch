@@ -2,7 +2,7 @@
 ## Visualizing near-Earth objects using NASA APIs
 
 ### Browse near-Earth objects by date using over one Century of NASA data
-![Watchful Eye Screenshot](https://i.ibb.co/S7FGPTD/Screen-Shot-2021-08-29-at-12-07-51-AM.png)
+![Watchful Eye Screenshot](https://i.ibb.co/41VWy81/Screen-Shot-2021-08-29-at-3-09-19-PM.png)
 
 #### Learn About Each Object
 ![More Object Info Screenshot](https://i.ibb.co/g4gGqqz/Screen-Shot-2021-08-29-at-12-10-26-AM.png)
