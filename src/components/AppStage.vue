@@ -319,7 +319,6 @@ export default {
           this.searching = false;
           this.hasSearched = true;
           this.updateQueryStrings();
-          this.$refs.userStartYear.focus();
         })
         .catch(error => {
           console.error('There has been a problem with your fetch operation:', error);
