@@ -9,6 +9,8 @@
 
 Explore a data set that goes back to 1900 and forward to 2200+.
 
+### [Explore with Watchful Eye](http://watchful-eye.netlify.app/)
+
 #### Thanks to open data from NASA
 [Info on NASA APIs](https://api.nasa.gov/).
 
