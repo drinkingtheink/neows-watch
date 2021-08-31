@@ -316,9 +316,12 @@ export default {
             return 0;
           });
           this.foundBodies = objectCollection;
-          this.searching = false;
-          this.hasSearched = true;
           this.updateQueryStrings();
+
+          setTimeout(() => {
+            this.searching = false;
+            this.hasSearched = true;
+          }, 2000);
         })
         .catch(error => {
           console.error('There has been a problem with your fetch operation:', error);
