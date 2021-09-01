@@ -42,7 +42,8 @@
       
       <label for="year">Year</label>
       <input 
-        v-model.number="userStartYear"
+        v-model.lazy="userStartYear"
+        v-debounce="delay"
         ref="userStartYear"
         type="number"
         id="year" 
@@ -53,7 +54,8 @@
 
       <label for="month">Month</label>
       <input 
-        v-model.number="userStartMonth" 
+        v-model.lazy="userStartMonth" 
+        v-debounce="delay"
         ref="userStartMonth"
         type="number"
         id="month" 
@@ -65,7 +67,8 @@
 
       <label for="day">Day</label>
       <input 
-        v-model.number="userStartDay"
+        v-model.lazy="userStartDay"
+        v-debounce="delay"
         ref="userStartDay"
         type="number"
         id="day" 
@@ -108,6 +111,7 @@ import Earth from './Earth.vue';
 import SpaceBG from './SpaceBG.vue';
 import { EventBus } from '../EventBus';
 import ICountUp from 'vue-countup-v2';
+import debounce from 'v-debounce';
 
 export default {
   name: 'AppStage',
@@ -134,7 +138,6 @@ export default {
       userStartYear: null,
       userStartMonth: null,
       userStartDay: null,
-      delay: 1000,
       options: {
         useEasing: true,
         useGrouping: true,
@@ -145,6 +148,7 @@ export default {
       },
       spaceBGTop: 0,
       spaceBGLeft: 0,
+      delay: 1000,
     }
   },
   computed: {
@@ -331,7 +335,10 @@ export default {
           this.searchError = true;
         });
       }
-    },
+  },
+  directives: {
+    debounce,
+  },
 }
 </script>
 
