@@ -290,7 +290,7 @@ export default {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     },
     adjustSpaceBG() {
-      this.spaceBGTop = this.getRandomInt(-5, -1440);
+      this.spaceBGTop = this.getRandomInt(-5, -1040);
       this.spaceBGLeft = this.getRandomInt(-8, -700);
     },
     updateQueryStrings() {
