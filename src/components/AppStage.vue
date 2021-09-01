@@ -60,7 +60,8 @@
         name="month"
         min="01" 
         max="12"
-        maxlength="2" />
+        maxlength="2"
+      />
 
       <label for="day">Day</label>
       <input 
@@ -71,7 +72,8 @@
         name="day"
         min="01" 
         max="31"
-        maxlength="2" />
+        maxlength="2"
+      />
         
       <span v-if="!todaySearchIsActive" class="back-to-today" @click="setSearchToToday">Back to Today</span>
         
@@ -284,7 +286,7 @@ export default {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     },
     adjustSpaceBG() {
-      this.spaceBGTop = this.getRandomInt(-5, -650);
+      this.spaceBGTop = this.getRandomInt(-5, -1440);
       this.spaceBGLeft = this.getRandomInt(-8, -700);
     },
     updateQueryStrings() {

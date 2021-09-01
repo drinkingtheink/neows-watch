@@ -114,7 +114,7 @@ computed: {
 },
 methods: {
     close() {
-    this.$emit('close');
+        this.$emit('close');
     },
     formatNumber(num) {
         return parseInt(num, 10).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
