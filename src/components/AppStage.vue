@@ -1,12 +1,14 @@
 <template>
   <div id="app-stage" @keydown.esc="handleEsc">
+    <MobileBanner class="mobile-stage" />
     <header>
-        <h1 v-if="searching" class="searching">
-          <WELogo searching="true" />
-          Searching the Skies...
-        </h1>
-        <h1 v-else>
-          <WELogo />
+        <WELogo 
+          class="logo-display"
+          :small="true"
+          :searching="searching" 
+        />
+        <h1 v-if="searching" class="searching">Searching the Skies...</h1>
+        <h1 v-if="!searching">
           NeoWs watches 
           <span class="count">
             <ICountUp
@@ -106,6 +108,7 @@
 import WELogo from './WELogo.vue';
 import BodyDashboard from './BodyDashboard.vue';
 import NoBodiesFound from './NoBodiesFound.vue';
+import MobileBanner from './MobileBanner.vue';
 import Modal from './Modal.vue';
 import Earth from './Earth.vue';
 import SpaceBG from './SpaceBG.vue';
@@ -119,6 +122,7 @@ export default {
     WELogo,
     BodyDashboard,
     NoBodiesFound,
+    MobileBanner,
     Modal,
     Earth,
     SpaceBG,
@@ -387,9 +391,6 @@ $blackOpac: 0.7;
 }
 
 header {
-    display: flex;
-    justify-content: center;
-    align-content: center;
     background-color: rgba(black, $blackOpac);
     border-bottom: 2px solid $yellow;
     height: 6rem;
@@ -410,10 +411,10 @@ header {
     span {
       font-family: inherit;
     }
-}
 
-.searching {
-
+    .logo-display {
+      margin: 0 auto;
+    }
 }
 
 main {
@@ -522,6 +523,22 @@ main {
     &:hover {
       color: $lightgreen;
     }
+  }
+}
+
+.mobile-stage {
+  display: none;
+}
+
+@media only screen and (max-width: 1000px) {
+  .mobile-stage {
+    display: flex;
+  }
+
+  header,
+  .date-editor,
+  .threat-stage {
+    display: none;
   }
 }
 </style>

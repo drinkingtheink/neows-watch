@@ -1,5 +1,5 @@
 <template>
-    <div class="we-logo" :class="{ 'searching': searching }">
+    <div class="we-logo" :class="{ 'searching': searching, 'small': small }">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         viewBox="0 0 820.8 96.8" style="enable-background:new 0 0 820.8 96.8;" xml:space="preserve">
             <g>
@@ -64,6 +64,7 @@ export default {
     name: 'WELogo',
     props: {
         searching: Boolean,
+        small: Boolean,
     },
 }
 </script>
@@ -81,13 +82,18 @@ export default {
 }
 
 .we-logo {
-    width: 30rem;
-    margin-bottom: -6px;
+    svg {
+        width: 100%;
+    }
 
     &.searching {
         circle {
             animation: blink 1s infinite;
         }
+    }
+
+    &.small {
+        width: 30rem;
     }
 }
 .st0{fill:$yellow;}
