@@ -170,6 +170,7 @@ export default {
         font-size: .75rem;
         margin: 0 0 5px 0;
         border-left: 2px solid $yellow;
+        text-align: left;
 
         p {
             margin: 0;
