@@ -1,13 +1,16 @@
 <template>
     <button class="heavenly-body" :class="{ 'potential-threat': potentialThreat }" @click="bodySelect(body)">
         <div class="label">
-            <p>
+            <div>
                 <strong>{{ body.name }}</strong>
-                <ICountUp
-                    :delay="delay"
-                    :endVal="parseInt(speed.miles_per_hour, 10)"
-                /> MPH
-            </p>
+                <div class="count-stage">
+                    <ICountUp
+                        :delay="delay"
+                        :endVal="parseInt(speed.miles_per_hour, 10)"
+                    /> 
+                    <span class="mph">MPH</span>
+                </div>
+            </div>
         </div>
         <span 
             class="disc"
@@ -163,9 +166,10 @@ export default {
     .label {
         background-color: rgba(black, 0.5);
         color: $yellow;
-        padding: 4px;
+        padding: 4px 4px 4px 10px;
         font-size: .75rem;
         margin: 0 0 5px 0;
+        border-left: 2px solid $yellow;
 
         p {
             margin: 0;
@@ -175,6 +179,14 @@ export default {
         strong {
             font-family: $headerFont !important;
             margin-right: .25rem;
+        }
+
+        .count-stage {
+            width: 3rem;
+        }
+
+        .mph {
+            font-size: 75%;
         }
     }
 
@@ -191,7 +203,7 @@ export default {
         .label {
             background-color: rgba($red, 0.5);
             color: white;
-            border-left: 4px $red;
+            border-color: white;
         }
 
         .disc {
