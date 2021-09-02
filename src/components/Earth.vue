@@ -194,7 +194,7 @@ $earthDim: 88vw;
     to { filter: blur(40px); opacity: 0.6; }
 }
 
-$earthDist: -20rem;
+$earthDist: -24rem;
 
 .earth-glow {
     position: absolute;
