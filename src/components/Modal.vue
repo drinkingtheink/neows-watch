@@ -117,7 +117,14 @@ methods: {
         this.$emit('close');
     },
     formatNumber(num) {
-        return parseInt(num, 10).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        let formattedNum;
+
+        if (num < 1) {
+            formattedNum = '< 1'
+        } else {
+            formattedNum = parseInt(num, 10).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        return formattedNum;
     },
 },
 };
