@@ -1,7 +1,13 @@
 <template>
     <button class="heavenly-body" :class="{ 'potential-threat': potentialThreat }" @click="bodySelect(body)">
         <div class="label">
-            <p>{{ body.name }}</p>
+            <p>
+                <strong>{{ body.name }}</strong>
+                <ICountUp
+                    :delay="delay"
+                    :endVal="parseInt(speed.miles_per_hour, 10)"
+                /> MPH
+            </p>
         </div>
         <span 
             class="disc"
@@ -15,6 +21,7 @@
 
 <script>
 import { EventBus } from '../EventBus';
+import ICountUp from 'vue-countup-v2';
 
 export default {
     name: 'Body',
@@ -22,6 +29,7 @@ export default {
         'Asteroid1': () => import('./Asteroid1'),
         'Asteroid2': () => import('./Asteroid2'),
         'Asteroid3': () => import('./Asteroid3'),
+        ICountUp,
     },
     props: {
         body: Object,
@@ -30,6 +38,7 @@ export default {
     data() {
         return {
             astToDisplay: null,
+            delay: 1000,
         }
     },
     computed: {
@@ -53,6 +62,9 @@ export default {
         potentialThreat() {
             return this.body.is_potentially_hazardous_asteroid;
         },
+        speed() {
+            return this.body.close_approach_data[0].relative_velocity;
+        }
     },
     mounted() {
         let randomBody = this.getRandomAsteroid();
@@ -73,6 +85,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '../styles/palette';
+@import '../styles/typography';
 
 @keyframes appear {
   from {
@@ -157,6 +170,11 @@ export default {
         p {
             margin: 0;
             padding: 0;
+        }
+
+        strong {
+            font-family: $headerFont !important;
+            margin-right: .25rem;
         }
     }
 

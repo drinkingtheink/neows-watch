@@ -14,7 +14,6 @@
             <ICountUp
               :delay="delay"
               :endVal="bodyCount"
-              :options="options"
             />
           </span> 
           object<span v-if="bodyCount > 1 || bodyCount < 1">s </span> 
