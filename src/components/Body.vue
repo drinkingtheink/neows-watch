@@ -141,6 +141,7 @@ export default {
     border: none;
     background: transparent;
     transition: all .4s;
+    border-radius: 10px;
 
     &:hover {
         cursor: pointer;
@@ -212,6 +213,13 @@ export default {
             animation: discThreatSwell 1s infinite;
             animation-direction: alternate;
         }
+    }
+
+    &:focus {
+        opacity: 1;
+        background: rgba(white, 0.1);
+        outline: none;
+        padding: 10px;
     }
 }
 </style>
