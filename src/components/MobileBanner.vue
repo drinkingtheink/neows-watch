@@ -32,6 +32,7 @@ export default {
 
     p {
         text-align: center;
+        font-size: 80%;
     }
 }
 </style>

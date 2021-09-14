@@ -122,8 +122,6 @@ methods: {
         if (num < 1) {
             formattedNum = '< 1'
         } else {
-            // formattedNum = parseInt(num, 10).toFixed(3).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            // formattedNum = num;
             formattedNum = Number.parseFloat(num).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
         return formattedNum;
