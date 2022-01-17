@@ -258,7 +258,7 @@ export default {
       this.$refs.userStartYear.focus();
     });
 
-    this.$refs.userStartYear.focus();
+    this.$refs.userStartDay.focus();
   },
   methods: {
     handleEsc() {
