@@ -39,31 +39,32 @@ export default {
             let medFloor = 150000;
             let ceiling = 20000000;
 
+            // Close or threatening asteroids - middle of screen
             if (distance < floor || posesThreat) {
-                bodyMin = 45;
-                bodyMax = 50;
+                bodyMin = 30;
+                bodyMax = 40;
             }
-
+            // Medium-close distance
             else if (distance > floor && distance < medFloor) {
-                bodyMin = 55;
-                bodyMax = 65;
+                bodyMin = 35;
+                bodyMax = 45;
             }
-
+            // Medium-far distance
             else if (distance > medFloor && distance < ceiling) {
-                bodyMin = 45;
-                bodyMax = 55;
+                bodyMin = 25;
+                bodyMax = 38;
             }
-
+            // Very far - top of screen
             else if (distance > ceiling) {
-                bodyMin = 10;
-                bodyMax = 25;
+                bodyMin = 8;
+                bodyMax = 20;
+            }
+            // Default
+            else {
+                bodyMin = 25;
+                bodyMax = 40;
             }
 
-            else {
-                bodyMin = 45;
-                bodyMax = 55;
-            }
-            
             return this.getRandomInt(bodyMin, bodyMax);
         }
     }
