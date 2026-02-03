@@ -72,15 +72,23 @@ export default {
         trailStyle() {
             // Calculate trail length based on speed (typical range: 10,000 - 90,000 mph)
             const speedMph = parseInt(this.speed.miles_per_hour, 10);
-            const minTrail = 30;
-            const maxTrail = 150;
+            const isHazardous = this.potentialThreat;
+
+            // Hazardous asteroids get larger trails
+            const minTrail = isHazardous ? 60 : 30;
+            const maxTrail = isHazardous ? 250 : 150;
+            const baseOpacity = isHazardous ? 0.5 : 0.3;
+            const maxOpacity = isHazardous ? 0.85 : 0.7;
+
             // Normalize speed to a 0-1 range (assuming 10k-90k mph range)
             const normalizedSpeed = Math.min(Math.max((speedMph - 10000) / 80000, 0), 1);
             const trailLength = minTrail + (normalizedSpeed * (maxTrail - minTrail));
+            const trailHeight = isHazardous ? '60%' : '40%';
 
             return {
                 width: `${trailLength}px`,
-                opacity: 0.3 + (normalizedSpeed * 0.4)
+                height: trailHeight,
+                opacity: baseOpacity + (normalizedSpeed * (maxOpacity - baseOpacity))
             };
         }
     },
