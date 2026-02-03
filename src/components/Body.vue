@@ -154,6 +154,17 @@ export default {
     }
 }
 
+@keyframes asteroidExit {
+    0% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-400px) scale(0.2);
+        opacity: 0;
+    }
+}
+
 .heavenly-body {
     @include bodyAppear;
     position: absolute;
@@ -165,6 +176,12 @@ export default {
     background: transparent;
     transition: all .4s;
     border-radius: 10px;
+
+    // Exit animation when leaving the DOM
+    &.asteroid-leave-active {
+        animation: asteroidExit 0.7s ease-in forwards;
+        pointer-events: none;
+    }
 
     &:hover {
         cursor: pointer;

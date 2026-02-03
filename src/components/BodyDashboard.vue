@@ -1,6 +1,6 @@
 <template>
     <div class="body-dashboard-stage">
-        <transition-group name="asteroid" tag="div" class="asteroid-container">
+        <transition-group name="asteroid" tag="div" class="asteroid-container" :css="true">
             <Body
                 v-for="(body, index) in bodyCollection"
                 :key="body.neo_reference_id"
@@ -81,20 +81,5 @@ export default {
     position: relative;
     height: 100%;
     width: 100%;
-}
-
-// Exit animation - asteroids fly off toward Earth (left)
-.asteroid-leave-active {
-    transition: all 0.8s ease-in;
-}
-
-.asteroid-leave-to {
-    transform: translateX(-200%) scale(0.5);
-    opacity: 0;
-}
-
-// Ensure entering asteroids still use their original animation
-.asteroid-enter-active {
-    // The enter animation is handled by Body.vue's appear animation
 }
 </style>
