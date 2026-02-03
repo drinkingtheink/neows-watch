@@ -83,11 +83,24 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/palette';
 
+@keyframes asteroidRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .asteroid1 {
     .st0{fill:$darkblue;}
     .st1{fill:$blue;}
     .st2{fill:$lightblue;}
     margin-top: 22%;
+
+    .asteroid {
+        animation: asteroidRotate 20s linear infinite;
+    }
 
     &.threat {
         .st0{fill:$darkestorange;}

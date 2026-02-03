@@ -173,6 +173,15 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/palette';
 
+@keyframes asteroidRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .asteroid2 {
     .st0{fill:$darkblue;}
 	.st1{fill:$blue;}
@@ -180,6 +189,10 @@ export default {
 	.st3{fill:$darkblue;}
 	.st4{fill:$lightblue;}
     margin-top: 25%;
+
+    .asteroid {
+        animation: asteroidRotate 25s linear infinite;
+    }
 
     &.threat {
         .st0{fill:$darkestorange;}

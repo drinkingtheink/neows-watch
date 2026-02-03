@@ -12,9 +12,10 @@
                 </div>
             </div>
         </div>
-        <span 
+        <span
             class="disc"
             :style="{ 'height': `${relativeSize}px`, 'width': `${relativeSize}px`, 'animation-delay': `0.${bodyIndex}0s` }">
+            <span class="trail" :style="trailStyle"></span>
             <Asteroid1 v-if="astToDisplay === 'Asteroid1'" :relativeSize="relativeSize" :threat="potentialThreat" />
             <Asteroid2 v-if="astToDisplay === 'Asteroid2'" :relativeSize="relativeSize" :threat="potentialThreat" />
             <Asteroid3 v-if="astToDisplay === 'Asteroid3'" :relativeSize="relativeSize" :threat="potentialThreat" />
@@ -67,6 +68,20 @@ export default {
         },
         speed() {
             return this.body.close_approach_data[0].relative_velocity;
+        },
+        trailStyle() {
+            // Calculate trail length based on speed (typical range: 10,000 - 90,000 mph)
+            const speedMph = parseInt(this.speed.miles_per_hour, 10);
+            const minTrail = 30;
+            const maxTrail = 150;
+            // Normalize speed to a 0-1 range (assuming 10k-90k mph range)
+            const normalizedSpeed = Math.min(Math.max((speedMph - 10000) / 80000, 0), 1);
+            const trailLength = minTrail + (normalizedSpeed * (maxTrail - minTrail));
+
+            return {
+                width: `${trailLength}px`,
+                opacity: 0.3 + (normalizedSpeed * 0.4)
+            };
         }
     },
     mounted() {
@@ -162,6 +177,31 @@ export default {
         display: flex;
         align-content: center;
         justify-content: center;
+        position: relative;
+    }
+
+    .trail {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 40%;
+        background: linear-gradient(to right, rgba($yellow, 0.8) 0%, rgba($yellow, 0.3) 30%, rgba($yellow, 0) 100%);
+        border-radius: 0 50% 50% 0;
+        pointer-events: none;
+        z-index: -1;
+        animation: trailPulse 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes trailPulse {
+        0% {
+            opacity: 0.4;
+            transform: translateY(-50%) scaleX(0.9);
+        }
+        100% {
+            opacity: 0.7;
+            transform: translateY(-50%) scaleX(1.1);
+        }
     }
 
     .label {
@@ -212,6 +252,10 @@ export default {
             background: radial-gradient(circle, rgba(255,255,255,0) 55%, rgba($lightred,1) 100%);
             animation: discThreatSwell 1s infinite;
             animation-direction: alternate;
+        }
+
+        .trail {
+            background: linear-gradient(to right, rgba($lightred, 0.8) 0%, rgba($lightred, 0.3) 30%, rgba($lightred, 0) 100%);
         }
     }
 
