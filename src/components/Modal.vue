@@ -28,6 +28,60 @@
                 </div>
 
                 <section class="modal-body" v-if="content">
+                    <h4>Flyby Trajectory:</h4>
+                    <div class="orbit-diagram" :class="{ 'is-threat': content.is_potentially_hazardous_asteroid }">
+                        <svg viewBox="0 0 500 200" class="orbit-svg">
+                            <!-- Background grid lines -->
+                            <line x1="80" y1="100" x2="480" y2="100" class="grid-line" />
+                            <line x1="80" y1="50" x2="80" y2="150" class="grid-line" />
+
+                            <!-- Earth -->
+                            <circle cx="80" cy="100" r="25" class="earth" />
+                            <text x="80" y="145" class="label earth-label">Earth</text>
+
+                            <!-- Moon orbit circle (dashed) -->
+                            <circle cx="80" cy="100" r="60" class="moon-orbit" fill="none" />
+
+                            <!-- Moon -->
+                            <circle cx="140" cy="100" r="7" class="moon" />
+                            <text x="140" y="125" class="label moon-label">Moon</text>
+
+                            <!-- Distance marker for 1 lunar distance -->
+                            <line x1="80" y1="170" x2="140" y2="170" class="distance-marker" />
+                            <text x="110" y="185" class="label distance-label">1 LD</text>
+
+                            <!-- Asteroid trajectory path -->
+                            <path :d="trajectoryPath" class="trajectory" fill="none" />
+
+                            <!-- Closest approach point -->
+                            <circle :cx="approachPointX" cy="100" r="4" class="approach-point" />
+                            <line :x1="approachPointX" y1="95" :x2="approachPointX" y2="75" class="approach-line" />
+                            <text :x="approachPointX" y="68" class="label approach-label">{{ formatNumber(missDistance.lunar) }} LD</text>
+
+                            <!-- Animated asteroid on trajectory -->
+                            <circle r="6" class="asteroid-dot">
+                                <animateMotion :dur="orbitDuration" repeatCount="indefinite" :path="trajectoryPath" />
+                            </circle>
+
+                            <!-- Asteroid trail -->
+                            <circle r="4" class="asteroid-trail trail-1">
+                                <animateMotion :dur="orbitDuration" repeatCount="indefinite" :path="trajectoryPath" begin="-0.3s" />
+                            </circle>
+                            <circle r="3" class="asteroid-trail trail-2">
+                                <animateMotion :dur="orbitDuration" repeatCount="indefinite" :path="trajectoryPath" begin="-0.5s" />
+                            </circle>
+                            <circle r="2" class="asteroid-trail trail-3">
+                                <animateMotion :dur="orbitDuration" repeatCount="indefinite" :path="trajectoryPath" begin="-0.7s" />
+                            </circle>
+                        </svg>
+                        <p class="orbit-note">
+                            <span v-if="lunarDistanceValue < 1">Closer than the Moon!</span>
+                            <span v-else-if="lunarDistanceValue < 5">Passing within {{ formatNumber(missDistance.lunar) }} lunar distances</span>
+                            <span v-else>Passing at {{ formatNumber(missDistance.lunar) }} lunar distances</span>
+                        </p>
+                    </div>
+                    <hr />
+
                     <div class="body-section">
                         <section>
                             <h6>APPROACHING</h6>
@@ -94,6 +148,7 @@
                             <p>{{ formatNumber(missDistance.miles) }}</p>
                         </section>
                     </div>
+
                 </section>
 
                 <footer class="modal-footer">
@@ -146,6 +201,35 @@ computed: {
         return {
             width: `${trailLength}px`,
         };
+    },
+    lunarDistanceValue: function() {
+        if (!this.content) return 0;
+        return parseFloat(this.missDistance.lunar);
+    },
+    approachPointX: function() {
+        // Calculate X position based on lunar distance
+        // Moon is at x=140, Earth at x=80, so 1 LD = 60px
+        // Cap the display at ~6 lunar distances for readability
+        const ld = Math.min(this.lunarDistanceValue, 6);
+        const pixelsPerLD = 60;
+        return 80 + (ld * pixelsPerLD);
+    },
+    trajectoryPath: function() {
+        // Create a curved flyby path
+        const approachX = this.approachPointX;
+        const startY = 30;
+        const endY = 170;
+        const peakX = approachX;
+
+        // Bezier curve: start from top-right, curve down to closest approach, exit bottom-right
+        return `M 480 ${startY} Q ${peakX + 50} ${startY}, ${peakX} 100 Q ${peakX - 30} ${endY - 30}, 480 ${endY}`;
+    },
+    orbitDuration: function() {
+        // Faster asteroids = shorter animation duration
+        const speedMph = parseInt(this.speed.miles_per_hour, 10);
+        const normalizedSpeed = Math.min(Math.max((speedMph - 10000) / 80000, 0), 1);
+        // Duration between 6s (fast) and 12s (slow)
+        return `${12 - (normalizedSpeed * 6)}s`;
     },
 },
 mounted() {
@@ -377,6 +461,12 @@ a.more-info {
     flex: 1;
     overflow-y: auto;
 
+    hr {
+        border: none;
+        border-top: 1px solid rgba(black, 0.1);
+        margin: 1.5rem 0;
+    }
+
     .body-section {
         display: flex;
         padding-bottom: 1rem;
@@ -423,5 +513,130 @@ small {
 .threat-detected {
     background-color: $lightred;
     color: $red;
+}
+
+// Orbit Diagram Styles
+.orbit-diagram {
+    background: linear-gradient(135deg, #0d0d2b 0%, #1a1a4e 50%, #0d0d2b 100%);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+
+    .orbit-svg {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+    }
+
+    .grid-line {
+        stroke: rgba(255, 255, 255, 0.1);
+        stroke-width: 1;
+        stroke-dasharray: 4, 4;
+    }
+
+    .earth {
+        fill: #5191FF;
+        filter: drop-shadow(0 0 8px rgba(81, 145, 255, 0.6));
+    }
+
+    .moon {
+        fill: #c0c0c0;
+        filter: drop-shadow(0 0 4px rgba(192, 192, 192, 0.5));
+    }
+
+    .moon-orbit {
+        stroke: rgba(255, 255, 255, 0.2);
+        stroke-width: 1;
+        stroke-dasharray: 4, 4;
+    }
+
+    .trajectory {
+        stroke: $yellow;
+        stroke-width: 2;
+        stroke-dasharray: 8, 4;
+        opacity: 0.6;
+    }
+
+    .approach-point {
+        fill: $yellow;
+        filter: drop-shadow(0 0 6px rgba($yellow, 0.8));
+    }
+
+    .approach-line {
+        stroke: $yellow;
+        stroke-width: 1;
+        stroke-dasharray: 2, 2;
+        opacity: 0.8;
+    }
+
+    .asteroid-dot {
+        fill: $yellow;
+        filter: drop-shadow(0 0 8px rgba($yellow, 0.9));
+    }
+
+    .asteroid-trail {
+        fill: $yellow;
+        opacity: 0.3;
+
+        &.trail-1 { opacity: 0.4; }
+        &.trail-2 { opacity: 0.25; }
+        &.trail-3 { opacity: 0.15; }
+    }
+
+    .distance-marker {
+        stroke: rgba(255, 255, 255, 0.5);
+        stroke-width: 1;
+    }
+
+    .label {
+        fill: white;
+        font-size: 10px;
+        text-anchor: middle;
+        font-family: sans-serif;
+
+        &.earth-label { fill: #5191FF; }
+        &.moon-label { fill: #c0c0c0; font-size: 8px; }
+        &.distance-label { fill: rgba(255, 255, 255, 0.6); font-size: 8px; }
+        &.approach-label { fill: $yellow; font-size: 9px; font-weight: bold; }
+    }
+
+    .orbit-note {
+        color: white;
+        text-align: center;
+        margin: 0.5rem 0 0 0;
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+
+    // Threat variant
+    &.is-threat {
+        background: linear-gradient(135deg, #2b0d0d 0%, #4e1a1a 50%, #2b0d0d 100%);
+
+        .trajectory {
+            stroke: $lightred;
+        }
+
+        .approach-point {
+            fill: $lightred;
+            filter: drop-shadow(0 0 8px rgba($lightred, 0.9));
+        }
+
+        .approach-line {
+            stroke: $lightred;
+        }
+
+        .asteroid-dot {
+            fill: $lightred;
+            filter: drop-shadow(0 0 10px rgba($lightred, 1));
+        }
+
+        .asteroid-trail {
+            fill: $lightred;
+        }
+
+        .label.approach-label {
+            fill: $lightred;
+        }
+    }
 }
 </style>
