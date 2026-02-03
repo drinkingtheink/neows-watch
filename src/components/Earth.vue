@@ -233,10 +233,64 @@ $earthDist: -24rem;
     transition: opacity .5s ease;
 }
 
+// Cloud enter/exit animations
+@keyframes cloudEnter {
+    from {
+        transform: translateX(200%) scale(0.3);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes cloudExit {
+    from {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-300%) scale(0.5);
+        opacity: 0;
+        filter: blur(30px);
+    }
+}
+
+.body-anim-enter-active {
+    animation: cloudEnter 1.2s ease-out forwards;
+}
+
+.body-anim-leave-active {
+    animation: cloudExit 0.8s ease-in forwards;
+}
+
 //CLOUDS
 @keyframes floaton {
-    from { transform: translateX(100%) translateZ(0); }
-    to { transform: translateX(-15%) translateZ(0); }
+    0% {
+        transform: translateX(120%) translateZ(0) scale(0.5);
+        opacity: 0;
+    }
+    8% {
+        transform: translateX(90%) translateZ(0) scale(0.8);
+        opacity: 0.6;
+    }
+    15% {
+        transform: translateX(70%) translateZ(0) scale(1);
+        opacity: 1;
+    }
+    85% {
+        transform: translateX(-40%) translateZ(0) scale(1);
+        opacity: 1;
+    }
+    92% {
+        transform: translateX(-70%) translateZ(0) scale(0.7);
+        opacity: 0.4;
+    }
+    100% {
+        transform: translateX(-120%) translateZ(0) scale(0.3);
+        opacity: 0;
+    }
 }
 
 .clouds {
