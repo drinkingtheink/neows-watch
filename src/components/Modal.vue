@@ -258,12 +258,12 @@ methods: {
 
     .closeup-trail {
         position: absolute;
-        left: 55%;
+        left: 25%;
         top: 50%;
         transform: translateY(-50%);
-        height: 50%;
-        background: linear-gradient(to right, rgba($yellow, 0.9) 0%, rgba($yellow, 0.4) 30%, rgba($yellow, 0) 100%);
-        border-radius: 0 50% 50% 0;
+        height: 65%;
+        background: linear-gradient(to right, rgba($yellow, 0.95) 0%, rgba($yellow, 0.7) 15%, rgba($yellow, 0.3) 40%, rgba($yellow, 0) 100%);
+        border-radius: 50% 40% 40% 50% / 50% 50% 50% 50%;
         z-index: 1;
         animation: trailPulse 1.5s ease-in-out infinite alternate;
     }
@@ -271,11 +271,11 @@ methods: {
     @keyframes trailPulse {
         0% {
             opacity: 0.6;
-            transform: translateY(-50%) scaleX(0.9);
+            transform: translateY(-50%) scaleX(0.95);
         }
         100% {
             opacity: 1;
-            transform: translateY(-50%) scaleX(1.1);
+            transform: translateY(-50%) scaleX(1.05);
         }
     }
 
@@ -287,8 +287,8 @@ methods: {
         }
 
         .closeup-trail {
-            height: 70%;
-            background: linear-gradient(to right, rgba($lightred, 0.95) 0%, rgba($lightred, 0.5) 30%, rgba($lightred, 0) 100%);
+            height: 80%;
+            background: linear-gradient(to right, rgba($lightred, 0.98) 0%, rgba($lightred, 0.75) 15%, rgba($lightred, 0.4) 40%, rgba($lightred, 0) 100%);
         }
     }
 }

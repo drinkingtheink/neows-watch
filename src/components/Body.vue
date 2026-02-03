@@ -207,12 +207,12 @@ export default {
 
     .trail {
         position: absolute;
-        left: 50%;
+        left: 20%;
         top: 50%;
         transform: translateY(-50%);
-        height: 40%;
-        background: linear-gradient(to right, rgba($yellow, 0.8) 0%, rgba($yellow, 0.3) 30%, rgba($yellow, 0) 100%);
-        border-radius: 0 50% 50% 0;
+        height: 55%;
+        background: linear-gradient(to right, rgba($yellow, 0.9) 0%, rgba($yellow, 0.7) 15%, rgba($yellow, 0.3) 40%, rgba($yellow, 0) 100%);
+        border-radius: 50% 40% 40% 50% / 50% 50% 50% 50%;
         pointer-events: none;
         z-index: -1;
         animation: trailPulse 2s ease-in-out infinite alternate;
@@ -221,11 +221,11 @@ export default {
     @keyframes trailPulse {
         0% {
             opacity: 0.4;
-            transform: translateY(-50%) scaleX(0.9);
+            transform: translateY(-50%) scaleX(0.95);
         }
         100% {
             opacity: 0.7;
-            transform: translateY(-50%) scaleX(1.1);
+            transform: translateY(-50%) scaleX(1.05);
         }
     }
 
@@ -280,7 +280,7 @@ export default {
         }
 
         .trail {
-            background: linear-gradient(to right, rgba($lightred, 0.8) 0%, rgba($lightred, 0.3) 30%, rgba($lightred, 0) 100%);
+            background: linear-gradient(to right, rgba($lightred, 0.95) 0%, rgba($lightred, 0.7) 15%, rgba($lightred, 0.3) 40%, rgba($lightred, 0) 100%);
         }
     }
 
