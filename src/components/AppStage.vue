@@ -67,15 +67,15 @@
       />
 
       <label for="day">Day</label>
-      <input 
+      <input
         v-model.lazy="userStartDay"
         v-debounce="delay"
         ref="userStartDay"
         type="number"
-        id="day" 
+        id="day"
         name="day"
-        min="01" 
-        max="31"
+        min="01"
+        max="99"
         maxlength="2"
       />
         
@@ -305,12 +305,55 @@ export default {
 
       history.pushState(null, null, "?"+urlParams.toString());
     },
+    validateAndCorrectDate() {
+      // Check if the date is valid
+      const year = parseInt(this.userStartYear, 10);
+      const month = parseInt(this.userStartMonth, 10);
+      const day = parseInt(this.userStartDay, 10);
+
+      // Skip validation if values aren't ready
+      if (isNaN(year) || isNaN(month) || isNaN(day)) {
+        return true;
+      }
+
+      // Get the last day of the specified month
+      const lastDayOfMonth = new Date(year, month, 0).getDate();
+
+      // If day exceeds the last day of the month, it's invalid
+      if (day > lastDayOfMonth) {
+        // Move to the first day of the next month
+        let newMonth = month + 1;
+        let newYear = year;
+
+        if (newMonth > 12) {
+          newMonth = 1;
+          newYear = year + 1;
+        }
+
+        // Use setTimeout to avoid issues with watcher loops
+        setTimeout(() => {
+          this.userStartYear = newYear;
+          this.userStartMonth = String(newMonth).padStart(2, '0');
+          this.userStartDay = '01';
+        }, 0);
+
+        return false; // Date was corrected
+      }
+
+      return true; // Date was valid
+    },
     getData() {
+      // Validate the date first
+      if (!this.validateAndCorrectDate()) {
+        // Date was invalid and corrected, getData will be called again via watcher
+        return;
+      }
+
       this.adjustSpaceBG();
       this.searching = true;
       this.searchError = false;
       this.hasSearched = false;
-      
+
       fetch(this.dataUrl)
         .then(response => {
           return response.json();
