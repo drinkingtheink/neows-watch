@@ -28,6 +28,22 @@
                 </div>
 
                 <section class="modal-body" v-if="content">
+                    <div class="body-section">
+                        <section>
+                            <h6>APPROACHING</h6>
+                            <p>{{ approachData.close_approach_date_full }}</p>
+                        </section>
+                        <section>
+                            <h6>ABSOLUTE MAGNITUDE</h6>
+                            <p>h = {{ content.absolute_magnitude_h }}</p>
+                        </section>
+                        <section>
+                            <h6>THREAT TO EARTH</h6>
+                            <p class="threat threat-detected" v-if="content.is_potentially_hazardous_asteroid">POTENTIALLY HAZARDOUS</p>
+                            <p class="threat no-threat" v-else>NO THREAT</p>
+                        </section>
+                    </div>
+
                     <h4>Flyby Trajectory:</h4>
                     <div class="orbit-diagram" :class="{ 'is-threat': content.is_potentially_hazardous_asteroid }">
                         <svg viewBox="0 0 500 200" class="orbit-svg">
@@ -82,22 +98,6 @@
                     </div>
                     <hr />
 
-                    <div class="body-section">
-                        <section>
-                            <h6>APPROACHING</h6>
-                            <p>{{ approachData.close_approach_date_full }}</p>
-                        </section>
-                        <section>
-                            <h6>ABSOLUTE MAGNITUDE</h6>
-                            <p>h = {{ content.absolute_magnitude_h }}</p>
-                        </section>
-                        <section>
-                            <h6>THREAT TO EARTH</h6>
-                            <p class="threat threat-detected" v-if="content.is_potentially_hazardous_asteroid">POTENTIALLY HAZARDOUS</p>
-                            <p class="threat no-threat" v-else>NO THREAT</p>
-                        </section>
-                    </div>
-
                     <h4>Size (estimated diameter):</h4>
                     <div class="body-section">
                         <section>
@@ -115,6 +115,88 @@
                             <p><small>MIN:</small> {{ formatNumber(content.estimated_diameter.miles.estimated_diameter_min) }}</p>
                             <p><small>MAX:</small> {{ formatNumber(content.estimated_diameter.miles.estimated_diameter_max) }}</p>
                         </section>
+                    </div>
+
+                    <div class="size-comparison" :class="{ 'is-threat': content.is_potentially_hazardous_asteroid }">
+                        <svg viewBox="0 0 500 120" class="size-svg">
+                            <!-- Ground line -->
+                            <line x1="10" y1="110" x2="490" y2="110" class="ground-line" />
+
+                            <!-- Human (6ft reference) -->
+                            <g class="comparison-object human">
+                                <ellipse cx="30" cy="108" rx="4" ry="2" class="shadow" />
+                                <circle cx="30" cy="85" r="5" class="obj-fill" />
+                                <line x1="30" y1="90" x2="30" y2="102" class="obj-stroke" stroke-width="2" />
+                                <line x1="30" y1="94" x2="24" y2="98" class="obj-stroke" stroke-width="1.5" />
+                                <line x1="30" y1="94" x2="36" y2="98" class="obj-stroke" stroke-width="1.5" />
+                                <line x1="30" y1="102" x2="26" y2="110" class="obj-stroke" stroke-width="1.5" />
+                                <line x1="30" y1="102" x2="34" y2="110" class="obj-stroke" stroke-width="1.5" />
+                                <text x="30" y="118" class="size-label">6ft</text>
+                            </g>
+
+                            <!-- Car (15ft) -->
+                            <g class="comparison-object car">
+                                <ellipse cx="75" cy="108" rx="18" ry="3" class="shadow" />
+                                <rect x="55" y="98" width="40" height="12" rx="2" class="obj-fill" />
+                                <rect x="62" y="92" width="26" height="8" rx="2" class="obj-fill-light" />
+                                <circle cx="63" cy="110" r="4" class="wheel" />
+                                <circle cx="87" cy="110" r="4" class="wheel" />
+                                <text x="75" y="118" class="size-label">15ft</text>
+                            </g>
+
+                            <!-- Bus (40ft) -->
+                            <g class="comparison-object bus">
+                                <ellipse cx="145" cy="108" rx="35" ry="4" class="shadow" />
+                                <rect x="105" y="88" width="80" height="22" rx="3" class="obj-fill" />
+                                <rect x="110" y="92" width="12" height="10" rx="1" class="window" />
+                                <rect x="125" y="92" width="12" height="10" rx="1" class="window" />
+                                <rect x="140" y="92" width="12" height="10" rx="1" class="window" />
+                                <rect x="155" y="92" width="12" height="10" rx="1" class="window" />
+                                <rect x="170" y="92" width="12" height="10" rx="1" class="window" />
+                                <circle cx="118" cy="110" r="5" class="wheel" />
+                                <circle cx="172" cy="110" r="5" class="wheel" />
+                                <text x="145" y="118" class="size-label">40ft</text>
+                            </g>
+
+                            <!-- Statue of Liberty (305ft) - scaled down -->
+                            <g class="comparison-object statue" v-if="asteroidSizeFeet > 100">
+                                <ellipse cx="240" cy="108" rx="15" ry="3" class="shadow" />
+                                <rect x="230" y="70" width="20" height="40" class="obj-fill" />
+                                <polygon points="240,20 235,45 245,45" class="obj-fill" />
+                                <line x1="240" y1="45" x2="240" y2="70" class="obj-stroke" stroke-width="4" />
+                                <line x1="240" y1="50" x2="255" y2="35" class="obj-stroke" stroke-width="3" />
+                                <circle cx="240" cy="38" r="5" class="obj-fill-light" />
+                                <text x="240" y="118" class="size-label">305ft</text>
+                            </g>
+
+                            <!-- Football field (360ft) -->
+                            <g class="comparison-object field" v-if="asteroidSizeFeet > 150">
+                                <rect x="280" y="100" width="90" height="10" class="field-fill" />
+                                <line x1="280" y1="100" x2="280" y2="110" class="field-line" />
+                                <line x1="298" y1="100" x2="298" y2="110" class="field-line" />
+                                <line x1="316" y1="100" x2="316" y2="110" class="field-line" />
+                                <line x1="334" y1="100" x2="334" y2="110" class="field-line" />
+                                <line x1="352" y1="100" x2="352" y2="110" class="field-line" />
+                                <line x1="370" y1="100" x2="370" y2="110" class="field-line" />
+                                <text x="325" y="118" class="size-label">360ft</text>
+                            </g>
+
+                            <!-- Eiffel Tower (1000ft) -->
+                            <g class="comparison-object tower" v-if="asteroidSizeFeet > 500">
+                                <ellipse cx="420" cy="108" rx="25" ry="4" class="shadow" />
+                                <polygon points="420,15 395,110 400,110 420,50 440,110 445,110" class="obj-fill" />
+                                <rect x="410" y="60" width="20" height="8" class="obj-fill-light" />
+                                <rect x="405" y="85" width="30" height="8" class="obj-fill-light" />
+                                <text x="420" y="118" class="size-label">1000ft</text>
+                            </g>
+
+                            <!-- Asteroid size indicator -->
+                            <g class="asteroid-size-indicator">
+                                <circle :cx="asteroidComparisonX" :cy="asteroidComparisonY" :r="asteroidComparisonRadius" class="asteroid-circle" />
+                                <text :x="asteroidComparisonX" :y="asteroidComparisonY + asteroidComparisonRadius + 15" class="asteroid-size-label">~{{ Math.round(asteroidSizeFeet) }}ft</text>
+                            </g>
+                        </svg>
+                        <p class="size-note">{{ sizeComparisonText }}</p>
                     </div>
 
                     <h4>Speed (relative velocity):</h4>
@@ -230,6 +312,44 @@ computed: {
         const normalizedSpeed = Math.min(Math.max((speedMph - 10000) / 80000, 0), 1);
         // Duration between 6s (fast) and 12s (slow)
         return `${12 - (normalizedSpeed * 6)}s`;
+    },
+    asteroidSizeFeet: function() {
+        if (!this.content) return 0;
+        // Use average of min and max
+        const min = this.content.estimated_diameter.feet.estimated_diameter_min;
+        const max = this.content.estimated_diameter.feet.estimated_diameter_max;
+        return (min + max) / 2;
+    },
+    asteroidComparisonRadius: function() {
+        // Scale the asteroid size for display (1ft = 0.15px, capped)
+        const size = this.asteroidSizeFeet;
+        const radius = Math.max(5, Math.min(size * 0.08, 50));
+        return radius;
+    },
+    asteroidComparisonX: function() {
+        // Position asteroid based on its size category
+        const size = this.asteroidSizeFeet;
+        if (size < 50) return 75;      // Near car
+        if (size < 150) return 145;    // Near bus
+        if (size < 350) return 240;    // Near statue
+        if (size < 600) return 325;    // Near field
+        return 420;                     // Near tower
+    },
+    asteroidComparisonY: function() {
+        // Position above ground, accounting for radius
+        return 110 - this.asteroidComparisonRadius - 5;
+    },
+    sizeComparisonText: function() {
+        const size = this.asteroidSizeFeet;
+        if (size < 15) return "About the size of a car";
+        if (size < 40) return "About the size of a school bus";
+        if (size < 100) return "About the size of a large house";
+        if (size < 200) return "Larger than a Boeing 747";
+        if (size < 350) return "About as tall as the Statue of Liberty";
+        if (size < 500) return "Longer than a football field";
+        if (size < 1000) return "Taller than the Eiffel Tower";
+        if (size < 2000) return "Larger than the Empire State Building";
+        return "Massive - larger than most skyscrapers";
     },
 },
 mounted() {
