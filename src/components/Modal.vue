@@ -137,8 +137,8 @@ computed: {
         const speedMph = parseInt(this.speed.miles_per_hour, 10);
         const isHazardous = this.content.is_potentially_hazardous_asteroid;
 
-        const minTrail = isHazardous ? 120 : 80;
-        const maxTrail = isHazardous ? 350 : 250;
+        const minTrail = isHazardous ? 200 : 150;
+        const maxTrail = isHazardous ? 450 : 350;
 
         const normalizedSpeed = Math.min(Math.max((speedMph - 10000) / 80000, 0), 1);
         const trailLength = minTrail + (normalizedSpeed * (maxTrail - minTrail));

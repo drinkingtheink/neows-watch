@@ -74,16 +74,16 @@ export default {
             const speedMph = parseInt(this.speed.miles_per_hour, 10);
             const isHazardous = this.potentialThreat;
 
-            // Hazardous asteroids get larger trails
-            const minTrail = isHazardous ? 60 : 30;
-            const maxTrail = isHazardous ? 250 : 150;
+            // Hazardous asteroids get larger trails - all trails are now much longer
+            const minTrail = isHazardous ? 180 : 120;
+            const maxTrail = isHazardous ? 500 : 350;
             const baseOpacity = isHazardous ? 0.5 : 0.3;
             const maxOpacity = isHazardous ? 0.85 : 0.7;
 
             // Normalize speed to a 0-1 range (assuming 10k-90k mph range)
             const normalizedSpeed = Math.min(Math.max((speedMph - 10000) / 80000, 0), 1);
             const trailLength = minTrail + (normalizedSpeed * (maxTrail - minTrail));
-            const trailHeight = isHazardous ? '60%' : '40%';
+            const trailHeight = isHazardous ? '70%' : '55%';
 
             return {
                 width: `${trailLength}px`,
