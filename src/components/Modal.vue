@@ -15,6 +15,17 @@
                         x
                     </button>
                 </header>
+                <div class="asteroid-showcase" :class="{ 'is-threat': content && content.is_potentially_hazardous_asteroid }">
+                    <div class="stars"></div>
+                    <div class="asteroid-closeup">
+                        <span class="closeup-trail" :style="trailStyle"></span>
+                        <div class="asteroid-wrapper">
+                            <Asteroid1 v-if="asteroidType === 'Asteroid1'" :relativeSize="180" :threat="content && content.is_potentially_hazardous_asteroid" />
+                            <Asteroid2 v-if="asteroidType === 'Asteroid2'" :relativeSize="180" :threat="content && content.is_potentially_hazardous_asteroid" />
+                            <Asteroid3 v-if="asteroidType === 'Asteroid3'" :relativeSize="180" :threat="content && content.is_potentially_hazardous_asteroid" />
+                        </div>
+                    </div>
+                </div>
 
                 <section class="modal-body" v-if="content">
                     <div class="body-section">
@@ -98,8 +109,18 @@
 <script>
 export default {
 name: 'Modal',
+components: {
+    'Asteroid1': () => import('./Asteroid1'),
+    'Asteroid2': () => import('./Asteroid2'),
+    'Asteroid3': () => import('./Asteroid3'),
+},
 props: {
     content: Object,
+},
+data() {
+    return {
+        asteroidType: null,
+    };
 },
 computed: {
     approachData: function() {
@@ -111,6 +132,25 @@ computed: {
     missDistance: function() {
         return this.approachData.miss_distance;
     },
+    trailStyle: function() {
+        if (!this.content) return {};
+        const speedMph = parseInt(this.speed.miles_per_hour, 10);
+        const isHazardous = this.content.is_potentially_hazardous_asteroid;
+
+        const minTrail = isHazardous ? 120 : 80;
+        const maxTrail = isHazardous ? 350 : 250;
+
+        const normalizedSpeed = Math.min(Math.max((speedMph - 10000) / 80000, 0), 1);
+        const trailLength = minTrail + (normalizedSpeed * (maxTrail - minTrail));
+
+        return {
+            width: `${trailLength}px`,
+        };
+    },
+},
+mounted() {
+    const bodies = ['Asteroid1', 'Asteroid2', 'Asteroid3'];
+    this.asteroidType = bodies[Math.floor(Math.random() * bodies.length)];
 },
 methods: {
     close() {
@@ -145,13 +185,122 @@ methods: {
     align-items: center;
 }
 
+.asteroid-showcase {
+    position: relative;
+    height: 180px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #0d0d2b 0%, #1a1a4e 50%, #0d0d2b 100%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+            radial-gradient(2px 2px at 20px 30px, white, transparent),
+            radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+            radial-gradient(1px 1px at 90px 40px, white, transparent),
+            radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1px 1px at 160px 20px, white, transparent),
+            radial-gradient(2px 2px at 200px 60px, rgba(255,255,255,0.7), transparent),
+            radial-gradient(1px 1px at 250px 90px, white, transparent),
+            radial-gradient(2px 2px at 300px 30px, rgba(255,255,255,0.8), transparent),
+            radial-gradient(1px 1px at 350px 70px, white, transparent),
+            radial-gradient(2px 2px at 400px 50px, rgba(255,255,255,0.6), transparent),
+            radial-gradient(1px 1px at 450px 85px, white, transparent),
+            radial-gradient(2px 2px at 500px 25px, rgba(255,255,255,0.7), transparent),
+            radial-gradient(1px 1px at 550px 65px, white, transparent),
+            radial-gradient(2px 2px at 600px 45px, rgba(255,255,255,0.8), transparent),
+            radial-gradient(1px 1px at 650px 15px, white, transparent),
+            radial-gradient(2px 2px at 700px 75px, rgba(255,255,255,0.6), transparent);
+        animation: starScroll 3s linear infinite;
+    }
+
+    @keyframes starScroll {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-100px);
+        }
+    }
+
+    .asteroid-closeup {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: hurtleBob 2s ease-in-out infinite;
+    }
+
+    @keyframes hurtleBob {
+        0%, 100% {
+            transform: translateY(0) translateX(0);
+        }
+        25% {
+            transform: translateY(-5px) translateX(3px);
+        }
+        75% {
+            transform: translateY(5px) translateX(-3px);
+        }
+    }
+
+    .asteroid-wrapper {
+        position: relative;
+        z-index: 2;
+        filter: drop-shadow(0 0 20px rgba($yellow, 0.5));
+    }
+
+    .closeup-trail {
+        position: absolute;
+        left: 55%;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 50%;
+        background: linear-gradient(to right, rgba($yellow, 0.9) 0%, rgba($yellow, 0.4) 30%, rgba($yellow, 0) 100%);
+        border-radius: 0 50% 50% 0;
+        z-index: 1;
+        animation: trailPulse 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes trailPulse {
+        0% {
+            opacity: 0.6;
+            transform: translateY(-50%) scaleX(0.9);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(-50%) scaleX(1.1);
+        }
+    }
+
+    &.is-threat {
+        background: linear-gradient(135deg, #2b0d0d 0%, #4e1a1a 50%, #2b0d0d 100%);
+
+        .asteroid-wrapper {
+            filter: drop-shadow(0 0 25px rgba($lightred, 0.7));
+        }
+
+        .closeup-trail {
+            height: 70%;
+            background: linear-gradient(to right, rgba($lightred, 0.95) 0%, rgba($lightred, 0.5) 30%, rgba($lightred, 0) 100%);
+        }
+    }
+}
+
 .modal {
     background:white;
     box-shadow: 2px 2px 20px 1px;
-    overflow-x: auto;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     min-width: 50rem;
+    max-height: 90vh;
     z-index: 100;
     border-radius: 20px;
 
@@ -187,6 +336,7 @@ p.neo-id {
 .modal-footer {
     padding: 15px;
     display: flex;
+    flex-shrink: 0;
     background-color: $grey;
 }
 
@@ -194,6 +344,7 @@ p.neo-id {
     position: relative;
     border-bottom: 1px solid #eeeeee;
     justify-content: space-between;
+    border-radius: 20px 20px 0 0;
 }
 
 a.more-info {
@@ -223,8 +374,8 @@ a.more-info {
 .modal-body {
     position: relative;
     padding: 1rem 2rem;
-    height: 28rem;
-    overflow-x: auto;
+    flex: 1;
+    overflow-y: auto;
 
     .body-section {
         display: flex;
