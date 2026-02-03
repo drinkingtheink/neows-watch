@@ -398,6 +398,7 @@ methods: {
     display: flex;
     align-items: center;
     justify-content: center;
+    border-bottom: 5px solid;
 
     .stars {
         position: absolute;
