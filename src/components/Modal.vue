@@ -760,4 +760,120 @@ small {
         }
     }
 }
+
+// Size Comparison Styles
+.size-comparison {
+    background: linear-gradient(135deg, #0d0d2b 0%, #1a1a4e 50%, #0d0d2b 100%);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+
+    .size-svg {
+        width: 100%;
+        height: auto;
+        max-height: 140px;
+    }
+
+    .ground-line {
+        stroke: rgba(255, 255, 255, 0.3);
+        stroke-width: 2;
+    }
+
+    .comparison-object {
+        .shadow {
+            fill: rgba(0, 0, 0, 0.3);
+        }
+
+        .obj-fill {
+            fill: rgba(255, 255, 255, 0.7);
+        }
+
+        .obj-fill-light {
+            fill: rgba(255, 255, 255, 0.4);
+        }
+
+        .obj-stroke {
+            stroke: rgba(255, 255, 255, 0.7);
+        }
+
+        .wheel {
+            fill: #333;
+            stroke: rgba(255, 255, 255, 0.5);
+            stroke-width: 1;
+        }
+
+        .window {
+            fill: rgba(100, 180, 255, 0.6);
+        }
+    }
+
+    .field {
+        .field-fill {
+            fill: #2d5a27;
+        }
+
+        .field-line {
+            stroke: rgba(255, 255, 255, 0.6);
+            stroke-width: 1;
+        }
+    }
+
+    .size-label {
+        fill: rgba(255, 255, 255, 0.8);
+        font-size: 7px;
+        text-anchor: middle;
+        font-family: sans-serif;
+    }
+
+    .asteroid-size-indicator {
+        .asteroid-circle {
+            fill: $yellow;
+            filter: drop-shadow(0 0 10px rgba($yellow, 0.8));
+            animation: asteroidPulse 1.5s ease-in-out infinite alternate;
+        }
+
+        .asteroid-size-label {
+            fill: $yellow;
+            font-size: 10px;
+            text-anchor: middle;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+    }
+
+    @keyframes asteroidPulse {
+        0% {
+            opacity: 0.7;
+            transform: scale(0.95);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+    }
+
+    .size-note {
+        color: white;
+        text-align: center;
+        margin: 0.5rem 0 0 0;
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+
+    // Threat variant
+    &.is-threat {
+        background: linear-gradient(135deg, #2b0d0d 0%, #4e1a1a 50%, #2b0d0d 100%);
+
+        .asteroid-size-indicator {
+            .asteroid-circle {
+                fill: $lightred;
+                filter: drop-shadow(0 0 12px rgba($lightred, 0.9));
+            }
+
+            .asteroid-size-label {
+                fill: $lightred;
+            }
+        }
+    }
+}
 </style>
